@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PickyEaters</string>
+    <string name="yelp_consumer_key">soQeZriMgIbXNU4nfMKPNA</string>
+    <string name="yelp_consumer_secret">G0K46RdynsP_bNc8wF4SUvb7hCM</string>
+    <string name="yelp_token">7a7Yarf39U9E7F6KYXLRDMvHin6xjcz4</string>
+    <string name="yelp_token_secret">sQZkuGNzflGKMXODDo3WphTl1go</string>
 </resources>
