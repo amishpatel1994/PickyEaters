@@ -11,7 +11,9 @@ import com.yelp.clientlib.entities.SearchResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +47,8 @@ public class HomeActivity extends AppCompatActivity {
         txt.setText("BOO!");
         // general params
         params.put("term", "food");
-        params.put("limit", "3");
+        params.put("limit", "10");
+        params.put("sort", "2");
 
         // locale params
         params.put("lang", "en");
@@ -61,21 +64,14 @@ public class HomeActivity extends AppCompatActivity {
                 //JSON response
                 SearchResponse searchResponse = response.body();
 
-                JSONParser parser = new JSONParser();
-                JSONObject JSONresponse = null;
-
-                /*
-                try {
-                    response = (JSONObject) parser.parse(searchResponse.toString());
-                } catch (ParseException pe) {
-                    System.out.println("Error: could not parse JSON response:");
-                    System.out.println(searchResponse);
-                    System.exit(1);
-                } */
-
                 ArrayList<Restaurant> tempList = new ArrayList<Restaurant>();
+                Set<Restaurant> restaurantSet = new HashSet<Restaurant>();
 
-               // for (ArrayList restaurant : searchResponse){}
+                for (com.yelp.clientlib.entities.Business  restaurant : searchResponse.businesses()){
+                    Restaurant r = new Restaurant(restaurant.id(), restaurant.name(), restaurant.displayPhone(), restaurant.rating());
+                    restaurantSet.add(r);
+                    tempList.add(r);
+                }
                 Log.d("Greeting",searchResponse.businesses().toString());
                 // Update UI text with the searchResponse.
             }
