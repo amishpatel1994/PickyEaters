@@ -9,13 +9,20 @@ import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.SearchResponse;
 
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.example.amish.pickyeaters.Restaurant;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -51,16 +58,31 @@ public class HomeActivity extends AppCompatActivity {
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                //JSON response
                 SearchResponse searchResponse = response.body();
-                txt.setText("Hello This changed!");
+
+                JSONParser parser = new JSONParser();
+                JSONObject JSONresponse = null;
+
+                /*
+                try {
+                    response = (JSONObject) parser.parse(searchResponse.toString());
+                } catch (ParseException pe) {
+                    System.out.println("Error: could not parse JSON response:");
+                    System.out.println(searchResponse);
+                    System.exit(1);
+                } */
+
+                ArrayList<Restaurant> tempList = new ArrayList<Restaurant>();
+
+               // for (ArrayList restaurant : searchResponse){}
                 Log.d("Greeting",searchResponse.businesses().toString());
-//                Log.d("The response", searchResponse.toString());
                 // Update UI text with the searchResponse.
             }
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 // HTTP error happened, do something to handle it.
-                Log.d("FAILUREE!!", call.toString());
+                Log.d("Failed response", call.toString());
             }
         };
 
