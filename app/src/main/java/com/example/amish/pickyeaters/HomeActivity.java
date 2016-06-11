@@ -65,11 +65,9 @@ public class HomeActivity extends AppCompatActivity {
                 SearchResponse searchResponse = response.body();
 
                 ArrayList<Restaurant> tempList = new ArrayList<Restaurant>();
-                Set<Restaurant> restaurantSet = new HashSet<Restaurant>();
 
                 for (com.yelp.clientlib.entities.Business  restaurant : searchResponse.businesses()){
                     Restaurant r = new Restaurant(restaurant.id(), restaurant.name(), restaurant.displayPhone(), restaurant.rating());
-                    restaurantSet.add(r);
                     tempList.add(r);
                 }
                 Log.d("Greeting",searchResponse.businesses().toString());
