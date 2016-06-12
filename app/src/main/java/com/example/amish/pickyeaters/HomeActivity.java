@@ -53,7 +53,6 @@ public class HomeActivity extends AppCompatActivity {
 
         //TODO: Test out this amazingness and make a list view!!!
         Call<SearchResponse> call = yelpAPI.search("San Francisco", params);
-        Response<SearchResponse> response;
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
