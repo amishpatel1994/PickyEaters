@@ -1,5 +1,11 @@
 package com.example.amish.pickyeaters;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,11 +21,12 @@ import com.yelp.clientlib.entities.SearchResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.example.amish.pickyeaters.Restaurant;
+import com.yelp.clientlib.entities.options.CoordinateOptions;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -51,8 +58,40 @@ public class HomeActivity extends AppCompatActivity {
         // locale params
         params.put("lang", "en");
 
+        // Defaults to latitude and longitude of San Francisco
+        double lat = 37.7749;
+        double lng = -122.4194;
+
+        // Get the latitude and longitude based on android
+        LocationManager lManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        boolean netEnabled = lManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (netEnabled) {
+            // checks if we have the required permissions. If we don't, then request them
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                            PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                        0);
+            }
+            // Get the location (lat, lng)
+            Location location = lManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location != null)
+            {
+                lat = location.getLatitude();
+                lng = location.getLongitude();
+            }
+
+            Log.d("Bruh. latitude", Double.toString(lat));
+            Log.d("Bruh. longitude", Double.toString(lng));
+
+        }
         //TODO: Test out this amazingness and make a list view!!!
-        Call<SearchResponse> call = yelpAPI.search("San Francisco", params);
+        CoordinateOptions coordinate = CoordinateOptions.builder()
+                .latitude(lat)
+                .longitude(lng).build();
+        Call<SearchResponse> call = yelpAPI.search(coordinate, params);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
