@@ -50,7 +50,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Restaurant restaurant = restaurantList.get(position);
+        final Restaurant restaurant = restaurantList.get(position);
         holder.name.setText(restaurant.getName());
         holder.rating.setText(restaurant.getRating().toString());
         holder.phone.setText(restaurant.getPhone());
@@ -60,7 +60,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             public void onClick(View view) {
                 String restaurantName = (String) ((TextView) view).getText();
                 int targetLocation = getIndexByName(restaurantName);
-                if (targetLocation >= 0) {
+                if (targetLocation >= 0 && restaurantList.size() > 1) {
                     restaurantList.remove(targetLocation);
                     notifyDataSetChanged();
                 }
