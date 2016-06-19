@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
@@ -100,6 +101,9 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+
+
 
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
