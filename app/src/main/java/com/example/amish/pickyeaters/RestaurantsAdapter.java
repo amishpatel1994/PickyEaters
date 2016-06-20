@@ -1,5 +1,8 @@
 package com.example.amish.pickyeaters;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import java.util.List;
  */
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
     private List<Restaurant> restaurantList;
+    private Activity activity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, rating, phone;
@@ -27,8 +31,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     }
 
 
-    public RestaurantsAdapter(List<Restaurant> restaurantList) {
+    public RestaurantsAdapter(List<Restaurant> restaurantList, Activity activity) {
         this.restaurantList = restaurantList;
+        this.activity = activity;
     }
 
     @Override
@@ -60,11 +65,28 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             public void onClick(View view) {
                 String restaurantName = (String) ((TextView) view).getText();
                 int targetLocation = getIndexByName(restaurantName);
+
+                //Take user to google maps if last item is clicked
+                if (restaurantList.size() == 1){
+                    // Create a Uri from an intent string. Use the result to create an Intent.
+                    //Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+                    String address = restaurantList.get(0).getAddress();
+                    Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
+
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+
+                    //startActivity(mapIntent);
+                    mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.getApplication().startActivity(mapIntent);
+
+                }
+
                 if (targetLocation >= 0 && restaurantList.size() > 1) {
                     restaurantList.remove(targetLocation);
                     notifyDataSetChanged();
                 }
-                
+
                 Log.d("clicked", restaurantName);
             }
         });
