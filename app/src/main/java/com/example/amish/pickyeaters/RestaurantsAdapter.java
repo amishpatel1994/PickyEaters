@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -85,6 +86,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 if (targetLocation >= 0 && restaurantList.size() > 1) {
                     restaurantList.remove(targetLocation);
                     notifyDataSetChanged();
+
+                    if (restaurantList.size() == 1){
+                        Toast.makeText(activity, "Click on restaurant to go to google maps",
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 Log.d("clicked", restaurantName);
