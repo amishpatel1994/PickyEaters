@@ -64,7 +64,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     restaurantList.remove(targetLocation);
                     notifyDataSetChanged();
                 }
-                Log.d("THIS NIGGA clicked", restaurantName);
+                Log.d("clicked", restaurantName);
             }
         });
 

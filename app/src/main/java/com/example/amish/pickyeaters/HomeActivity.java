@@ -49,8 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                 this.getString(R.string.yelp_token), this.getString(R.string.yelp_token_secret));
         yelpAPI = apiFactory.createAPI();
 
-        final TextView txt = (TextView) findViewById(R.id.testView);
-        txt.setText("BOO!");
+        final TextView txt = (TextView) findViewById(R.id.topLabel1);
         // general params
         params.put("term", "food");
         params.put("limit", "10");
@@ -84,8 +83,8 @@ public class HomeActivity extends AppCompatActivity {
                 lng = location.getLongitude();
             }
 
-            Log.d("Bruh. latitude", Double.toString(lat));
-            Log.d("Bruh. longitude", Double.toString(lng));
+            Log.d("location latitude", Double.toString(lat));
+            Log.d("location longitude", Double.toString(lng));
 
         }
         //TODO: Test out this amazingness and make a list view!!!
@@ -116,13 +115,11 @@ public class HomeActivity extends AppCompatActivity {
                     restaurantList.add(r);
                 }
                 mAdapter.notifyDataSetChanged();
-                txt.setText("Success");
                 Log.d("Greeting",searchResponse.businesses().toString());
             }
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 // HTTP error happened, do something to handle it.
-                txt.setText("Failure");
                 Log.d("Failed response", call.toString());
             }
         };
