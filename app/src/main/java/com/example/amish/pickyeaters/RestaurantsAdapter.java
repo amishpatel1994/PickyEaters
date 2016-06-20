@@ -64,6 +64,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     restaurantList.remove(targetLocation);
                     notifyDataSetChanged();
                 }
+                
                 Log.d("clicked", restaurantName);
             }
         });

@@ -111,7 +111,18 @@ public class HomeActivity extends AppCompatActivity {
                 SearchResponse searchResponse = response.body();
 
                 for (com.yelp.clientlib.entities.Business  restaurant : searchResponse.businesses()){
-                    Restaurant r = new Restaurant(restaurant.id(), restaurant.name(), restaurant.displayPhone(), restaurant.rating());
+                    String addr = "";
+                    ArrayList<String> addrList = restaurant.location().displayAddress();
+                    for (int i = 0; i < addrList.size(); i++) {
+                        addr += addrList.get(i);
+                        if (i < addrList.size()-1) {
+                            addr += ", ";
+                        }
+                    }
+
+                    restaurant.location().displayAddress();
+                    Log.d("THE RESTAURANT", restaurant.location().toString());
+                    Restaurant r = new Restaurant(restaurant.id(), restaurant.name(), restaurant.displayPhone(), addr, restaurant.rating());
                     restaurantList.add(r);
                 }
                 mAdapter.notifyDataSetChanged();

@@ -9,12 +9,14 @@ public class Restaurant {
     private String name;
     private String phone;
     private Double rating;
+    private String address;
 
-    Restaurant(String id, String name, String phone, Double rating){
+    Restaurant(String id, String name, String phone, String address, Double rating){
         this.name = name;
         this.phone = phone;
         this.rating = rating;
         this. id = id;
+        this.address = address;
     }
 
     @Override
@@ -36,6 +38,10 @@ public class Restaurant {
     public int hashCode(){
         int result = getId().hashCode();
         return result;
+    }
+
+    public  String getAddress() {
+        return address;
     }
 
     public String getId() {
@@ -68,6 +74,10 @@ public class Restaurant {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public  void setAddress(String addr) {
+        this.address = addr;
     }
 
 }
