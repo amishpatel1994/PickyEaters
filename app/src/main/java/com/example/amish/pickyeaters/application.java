@@ -8,6 +8,9 @@ import android.content.res.Configuration;
  */
 public class application extends Application {
     private static application thisApp;
+    private HomeView homeView;
+    private HomeModel homeModel;
+    private HomeController homeController;
 
     public static application getInstance(){
         return thisApp;
@@ -17,6 +20,7 @@ public class application extends Application {
     public void onCreate(){
         super.onCreate();
         thisApp = this;
+        homeController = new HomeController();
     }
 
     @Override
@@ -24,7 +28,36 @@ public class application extends Application {
         super.onConfigurationChanged(newConfig);
     }
 
-    public static String foo(){
-        return "abra";
+    public void initHomeController(){
+        homeController.init(getHomeModel(), getHomeView());
     }
+
+    public HomeController getHomeController(){
+        return homeController;
+    }
+
+    public HomeView getHomeView(){
+        if (homeView == null){
+            homeView = new HomeView();
+            return homeView;
+        }
+        return homeView;
+    }
+
+    public void setHomeView(HomeView view){
+        this.homeView = view;
+    }
+
+    public HomeModel getHomeModel(){
+        if (homeModel == null){
+            homeModel = new HomeModel();
+            return homeModel;
+        }
+        return homeModel;
+    }
+
+    public void setHomeModel(HomeModel model){
+        this.homeModel = model;
+    }
+
 }
