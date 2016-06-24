@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
+import com.yelp.clientlib.entities.Category;
 import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.CoordinateOptions;
 
@@ -56,18 +57,11 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
             SearchResponse searchResponse = response.body();
 
             for (com.yelp.clientlib.entities.Business  restaurant : searchResponse.businesses()){
-                String addr = "";
-                ArrayList<String> addrList = restaurant.location().displayAddress();
-                for (int i = 0; i < addrList.size(); i++) {
-                    addr += addrList.get(i);
-                    if (i < addrList.size()-1) {
-                        addr += ", ";
-                    }
-                }
-
-                restaurant.location().displayAddress();
-                Log.d("THE RESTAURANT", restaurant.location().toString());
-                Restaurant r = new Restaurant(restaurant.id(), restaurant.name(), restaurant.displayPhone(), addr, restaurant.rating());
+                Restaurant r = new Restaurant(restaurant.id(), restaurant.name(),
+                        restaurant.displayPhone(),
+                        getRestaurantAddress(restaurant.location().displayAddress()),
+                        restaurant.imageUrl(), getAllCategories(restaurant.categories()),
+                        restaurant.rating(), restaurant.distance());
                 restaurantList.add(r);
             }
 
@@ -79,5 +73,27 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
         }
 
         return null;
+    }
+
+    private String getRestaurantAddress(ArrayList<String> addrList) {
+        StringBuilder addr = new StringBuilder();
+        for (int i = 0; i < addrList.size(); i++) {
+            addr.append(addrList.get(i));
+            if (i < addrList.size()-1) {
+                addr.append(", ");
+            }
+        }
+        return addr.toString();
+    }
+
+    private String getAllCategories(ArrayList<Category> cats) {
+        StringBuilder categories = new StringBuilder();
+        for (int i = 0; i < cats.size(); i++){
+            categories.append(cats.get(i));
+            if (i < cats.size()-1) {
+                categories.append(",");
+            }
+        }
+        return categories.toString();
     }
 }

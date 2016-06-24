@@ -10,13 +10,19 @@ public class Restaurant {
     private String phone;
     private Double rating;
     private String address;
+    private String imageUrl;
+    private Double distance;
+    private String description;
 
-    Restaurant(String id, String name, String phone, String address, Double rating){
+    Restaurant(String id, String name, String phone, String address, String url, String categories, Double rating, Double distance){
         this.name = name;
         this.phone = phone;
         this.rating = rating;
-        this. id = id;
+        this.id = id;
         this.address = address;
+        this.imageUrl = url;
+        this.description = categories;
+        this.distance = distance;
     }
 
     @Override
@@ -56,6 +62,18 @@ public class Restaurant {
         return phone;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
     public Double getRating() {
         return rating;
     }
@@ -80,4 +98,17 @@ public class Restaurant {
         this.address = addr;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    
 }
