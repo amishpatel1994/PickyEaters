@@ -3,6 +3,10 @@ package com.example.amish.pickyeaters;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.example.amish.pickyeaters.controllers.HomeController;
+import com.example.amish.pickyeaters.models.HomeModel;
+import com.example.amish.pickyeaters.views.HomeView;
+
 /**
  * Created by Akshat on 2016-06-22.
  */

@@ -1,4 +1,4 @@
-package com.example.amish.pickyeaters;
+package com.example.amish.pickyeaters.views;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -13,6 +13,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.amish.pickyeaters.R;
+import com.example.amish.pickyeaters.helpers.Restaurant;
+import com.example.amish.pickyeaters.helpers.RestaurantsAdapter;
+import com.example.amish.pickyeaters.helpers.YelpAPIService;
+
 import java.util.ArrayList;
 
 

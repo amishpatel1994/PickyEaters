@@ -1,4 +1,4 @@
-package com.example.amish.pickyeaters;
+package com.example.amish.pickyeaters.helpers;
 
 import org.json.JSONException;
 import org.json.JSONObject;

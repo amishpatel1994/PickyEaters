@@ -1,4 +1,4 @@
-package com.example.amish.pickyeaters;
+package com.example.amish.pickyeaters.models;
 
 /**
  * Created by Akshat on 2016-06-22.

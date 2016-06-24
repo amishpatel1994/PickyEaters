@@ -1,7 +1,10 @@
-package com.example.amish.pickyeaters;
+package com.example.amish.pickyeaters.controllers;
 
-import android.view.View;
 import android.widget.Toast;
+
+import com.example.amish.pickyeaters.models.HomeModel;
+import com.example.amish.pickyeaters.views.HomeView;
+import com.example.amish.pickyeaters.application;
 
 /**
  * Created by Akshat on 2016-06-22.

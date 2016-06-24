@@ -1,4 +1,4 @@
-package com.example.amish.pickyeaters;
+package com.example.amish.pickyeaters.helpers;
 
 import android.os.AsyncTask;
 import android.util.Log;
