@@ -1,5 +1,8 @@
 package com.example.amish.pickyeaters;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Akshat on 2016-06-11.
  */
@@ -110,5 +113,20 @@ public class Restaurant {
         this.distance = distance;
     }
 
-    
+    public JSONObject getJSON() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("id", this.id);
+            obj.put("name", this.name);
+            obj.put("phone", this.phone);
+            obj.put("rating", this.rating);
+            obj.put("address", this.address);
+            obj.put("imageUrl", this.imageUrl);
+            obj.put("description", this.description);
+            obj.put("distance", this.distance);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 }
