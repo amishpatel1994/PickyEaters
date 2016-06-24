@@ -31,7 +31,7 @@ public class VetoView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.veto_view);
 
         final TextView txt = (TextView) findViewById(R.id.topLabel1);
 
