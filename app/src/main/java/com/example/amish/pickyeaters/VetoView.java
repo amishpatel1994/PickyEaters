@@ -16,7 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class VetoView extends AppCompatActivity {
     private ArrayList<Restaurant> restaurantList = new ArrayList<Restaurant>();
     private RecyclerView recyclerView;
     private RestaurantsAdapter mAdapter;

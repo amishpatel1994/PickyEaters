@@ -39,7 +39,6 @@ public class application extends Application {
     public HomeView getHomeView(){
         if (homeView == null){
             homeView = new HomeView();
-            return homeView;
         }
         return homeView;
     }
@@ -51,7 +50,6 @@ public class application extends Application {
     public HomeModel getHomeModel(){
         if (homeModel == null){
             homeModel = new HomeModel();
-            return homeModel;
         }
         return homeModel;
     }
