@@ -37,7 +37,6 @@
     <EditText
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@id/captain_startveto_button"
         android:layout_below="@id/captain_session_id"
         android:inputType="number"/>
 
