@@ -32,10 +32,11 @@ public class VetoView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.veto_view);
         mApplication = (application)getApplication();
         mApplication.setVetoView(this);
         mApplication.initVetoController();
+
         final TextView txt = (TextView) findViewById(R.id.topLabel1);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
