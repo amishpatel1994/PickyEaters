@@ -4,8 +4,14 @@ import android.app.Application;
 import android.content.res.Configuration;
 
 import com.example.amish.pickyeaters.controllers.HomeController;
+import com.example.amish.pickyeaters.controllers.VetoController;
+import com.example.amish.pickyeaters.helpers.Restaurant;
 import com.example.amish.pickyeaters.models.HomeModel;
+import com.example.amish.pickyeaters.models.VetoModel;
 import com.example.amish.pickyeaters.views.HomeView;
+import com.example.amish.pickyeaters.views.VetoView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Akshat on 2016-06-22.
@@ -15,6 +21,10 @@ public class application extends Application {
     private HomeView homeView;
     private HomeModel homeModel;
     private HomeController homeController;
+    private VetoController vetoController;
+    private VetoModel vetoModel;
+    private VetoView vetoView;
+    public ArrayList<Restaurant> restaurants;
 
     public static application getInstance(){
         return thisApp;
@@ -25,6 +35,7 @@ public class application extends Application {
         super.onCreate();
         thisApp = this;
         homeController = new HomeController();
+        restaurants = new ArrayList<Restaurant>();
     }
 
     @Override
@@ -62,4 +73,44 @@ public class application extends Application {
         this.homeModel = model;
     }
 
+    //
+    public void initVetoController() {
+        if (vetoController == null) {
+            vetoController = new VetoController();
+        }
+        vetoController.init(getVetoModel(),getVetoView());
+    }
+
+    public VetoModel getVetoModel() {
+        if (vetoModel == null)
+            vetoModel = new VetoModel();
+        return vetoModel;
+    }
+
+    public VetoView getVetoView() {
+        int i = 0;
+        if (vetoView == null)
+            vetoView = new VetoView();
+        return vetoView;
+    }
+
+    public void setVetoController(VetoController vetoController) {
+        this.vetoController = vetoController;
+    }
+
+    public void setVetoModel(VetoModel vetoModel) {
+        this.vetoModel = vetoModel;
+    }
+
+    public void setRestaurants(ArrayList<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+
+    public void setVetoView(VetoView vetoView) {
+        this.vetoView = vetoView;
+    }
+
+    public ArrayList<Restaurant> getRestaurants() {
+        return restaurants;
+    }
 }
