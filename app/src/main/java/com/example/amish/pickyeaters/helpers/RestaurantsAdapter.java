@@ -34,7 +34,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             rating = (TextView) view.findViewById(R.id.rating);
-//            phone = (TextView) view.findViewById(R.id.phone);
             description = (TextView) view.findViewById(R.id.description);
             distance = (TextView) view.findViewById(R.id.distance);
             vetoCheckbox = (CheckBox) view.findViewById(R.id.vetoCheckBox);
@@ -71,7 +70,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         final Restaurant restaurant = restaurantList.get(position);
         holder.name.setText(restaurant.getName());
         holder.rating.setText(restaurant.getRating().toString());
-//        holder.phone.setText(restaurant.getPhone());
         holder.distance.setText(restaurant.getDistance().toString() + " Km");
         holder.description.setText(restaurant.getDescription());
 
@@ -82,38 +80,40 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             public void onClick(View view) {
                 String restaurantName = (String) ((TextView) view).getText();
                 int targetLocation = getIndexByName(restaurantName);
+                int count = 0;
+                for (Restaurant rest : restaurantList) {
+                    if (!rest.isVetoed()) {
+                        count++;
+                    }
+                }
 
                 //Take user to google maps if last item is clicked
-                if (restaurantList.size() == 1){
+                if (count == 1 && !restaurantList.get(targetLocation).isVetoed()){
                     // Create a Uri from an intent string. Use the result to create an Intent.
-                    //Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
-                    String address = restaurantList.get(0).getAddress();
+                    String address = restaurantList.get(targetLocation).getAddress();
                     Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
 
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
 
-                    //startActivity(mapIntent);
                     mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     activity.getApplication().startActivity(mapIntent);
 
                 }
 
-                if (targetLocation >= 0 && restaurantList.size() > 1) {
-                    Restaurant tmp = restaurantList.get(targetLocation);
-                    restaurantList.remove(targetLocation);
-                    mApplication.restaurants.remove(tmp);
-                    notifyDataSetChanged();
+                if (targetLocation >= 0 && count > 1) {
+                    restaurantList.get(targetLocation).setVetoed(true);
+                    mApplication.restaurants.get(targetLocation).setVetoed(true);
+//                    notifyDataSetChanged();
 
-                    if (restaurantList.size() == 1){
+                    if (count == 2){
                         Toast.makeText(activity, "Click on restaurant to go to google maps",
                                 Toast.LENGTH_LONG).show();
                     }
-                }
 
-                //TODO: Instead of removing the item from list, incorporate the gray out aspect
-                holder.itemView.setAlpha(0.5f);
-                holder.itemView.setBackgroundColor(Color.GRAY);
+                    holder.itemView.setAlpha(0.5f);
+                    holder.itemView.setBackgroundColor(Color.GRAY);
+                }
 
                 Log.d("clicked", restaurantName);
             }
