@@ -16,6 +16,7 @@ public class Restaurant {
     private String imageUrl;
     private Double distance;
     private String description;
+    private boolean isVetoed;
 
     Restaurant(String id, String name, String phone, String address, String url, String categories, Double rating, Double distance){
         this.name = name;
@@ -111,6 +112,14 @@ public class Restaurant {
 
     public void setDistance(Double distance) {
         this.distance = distance;
+    }
+
+    public void setVetoed(boolean vetoed) {
+        isVetoed = vetoed;
+    }
+
+    public boolean isVetoed() {
+        return isVetoed;
     }
 
     public JSONObject getJSON() {

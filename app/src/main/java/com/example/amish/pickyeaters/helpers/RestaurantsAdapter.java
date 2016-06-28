@@ -2,16 +2,19 @@ package com.example.amish.pickyeaters.helpers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amish.pickyeaters.R;
+import com.example.amish.pickyeaters.application;
 
 import java.util.List;
 
@@ -21,15 +24,20 @@ import java.util.List;
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
     private List<Restaurant> restaurantList;
     private Activity activity;
+    private application mApplication;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, rating, phone;
+        public TextView name, rating, phone, description, distance;
+        public CheckBox vetoCheckbox;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             rating = (TextView) view.findViewById(R.id.rating);
-            phone = (TextView) view.findViewById(R.id.phone);
+//            phone = (TextView) view.findViewById(R.id.phone);
+            description = (TextView) view.findViewById(R.id.description);
+            distance = (TextView) view.findViewById(R.id.distance);
+            vetoCheckbox = (CheckBox) view.findViewById(R.id.vetoCheckBox);
         }
     }
 
@@ -37,6 +45,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public RestaurantsAdapter(List<Restaurant> restaurantList, Activity activity) {
         this.restaurantList = restaurantList;
         this.activity = activity;
+        mApplication = (application) activity.getApplication();
     }
 
     @Override
@@ -56,12 +65,17 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return -1;
     }
 
+
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Restaurant restaurant = restaurantList.get(position);
         holder.name.setText(restaurant.getName());
         holder.rating.setText(restaurant.getRating().toString());
-        holder.phone.setText(restaurant.getPhone());
+//        holder.phone.setText(restaurant.getPhone());
+        holder.distance.setText(restaurant.getDistance().toString() + " Km");
+        holder.description.setText(restaurant.getDescription());
+
+
 
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +100,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 }
 
                 if (targetLocation >= 0 && restaurantList.size() > 1) {
+                    Restaurant tmp = restaurantList.get(targetLocation);
                     restaurantList.remove(targetLocation);
+                    mApplication.restaurants.remove(tmp);
                     notifyDataSetChanged();
 
                     if (restaurantList.size() == 1){
@@ -94,6 +110,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                                 Toast.LENGTH_LONG).show();
                     }
                 }
+
+                //TODO: Instead of removing the item from list, incorporate the gray out aspect
+                holder.itemView.setAlpha(0.5f);
+                holder.itemView.setBackgroundColor(Color.GRAY);
 
                 Log.d("clicked", restaurantName);
             }

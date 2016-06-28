@@ -57,11 +57,13 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
             SearchResponse searchResponse = response.body();
 
             for (com.yelp.clientlib.entities.Business  restaurant : searchResponse.businesses()){
+                Double tmp = restaurant.distance()/1000.0;
+                tmp = Math.round(tmp*10.0)/10.0;
                 Restaurant r = new Restaurant(restaurant.id(), restaurant.name(),
                         restaurant.displayPhone(),
                         getRestaurantAddress(restaurant.location().displayAddress()),
                         restaurant.imageUrl(), getAllCategories(restaurant.categories()),
-                        restaurant.rating(), restaurant.distance());
+                        restaurant.rating(), tmp);
                 restaurantList.add(r);
             }
 
@@ -89,7 +91,7 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
     private String getAllCategories(ArrayList<Category> cats) {
         StringBuilder categories = new StringBuilder();
         for (int i = 0; i < cats.size(); i++){
-            categories.append(cats.get(i));
+            categories.append(cats.get(i).name());
             if (i < cats.size()-1) {
                 categories.append(",");
             }
