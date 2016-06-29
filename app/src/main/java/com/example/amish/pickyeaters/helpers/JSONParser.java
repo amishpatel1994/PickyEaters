@@ -31,7 +31,7 @@ public class JSONParser {
                     rest.getString("name"), rest.getString("phone"),
                     rest.getString("address"), rest.getString("imageUrl"),
                     rest.getString("description"), rest.getDouble("rating"),
-                    rest.getDouble("distance"));
+                    rest.getDouble("distance"), null);
             restaurantList.add(restaurant);
         }
 

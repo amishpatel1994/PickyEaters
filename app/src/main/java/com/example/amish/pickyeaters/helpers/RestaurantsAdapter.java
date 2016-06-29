@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, rating, phone, description, distance;
         public CheckBox vetoCheckbox;
+        public ImageView restaurantImage;
 
         public MyViewHolder(View view) {
             super(view);
@@ -37,6 +40,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             description = (TextView) view.findViewById(R.id.description);
             distance = (TextView) view.findViewById(R.id.distance);
             vetoCheckbox = (CheckBox) view.findViewById(R.id.vetoCheckBox);
+            restaurantImage = (ImageView) view.findViewById(R.id.thumbnailImg);
         }
     }
 
@@ -72,7 +76,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         holder.rating.setText(restaurant.getRating().toString());
         holder.distance.setText(restaurant.getDistance().toString() + " Km");
         holder.description.setText(restaurant.getDescription());
-
+        holder.restaurantImage.setImageBitmap(restaurant.getImageBitmap());
 
 
         holder.name.setOnClickListener(new View.OnClickListener() {

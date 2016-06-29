@@ -1,5 +1,7 @@
 package com.example.amish.pickyeaters.helpers;
 
+import android.graphics.Bitmap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,8 +19,9 @@ public class Restaurant {
     private Double distance;
     private String description;
     private boolean isVetoed;
+    private Bitmap imageBitmap;
 
-    Restaurant(String id, String name, String phone, String address, String url, String categories, Double rating, Double distance){
+    Restaurant(String id, String name, String phone, String address, String url, String categories, Double rating, Double distance, Bitmap bm){
         this.name = name;
         this.phone = phone;
         this.rating = rating;
@@ -27,6 +30,7 @@ public class Restaurant {
         this.imageUrl = url;
         this.description = categories;
         this.distance = distance;
+        this.imageBitmap = bm;
     }
 
     @Override
@@ -112,6 +116,14 @@ public class Restaurant {
 
     public void setDistance(Double distance) {
         this.distance = distance;
+    }
+
+    public Bitmap getImageBitmap() {
+        return imageBitmap;
+    }
+
+    public void setImageBitmap(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
     }
 
     public void setVetoed(boolean vetoed) {

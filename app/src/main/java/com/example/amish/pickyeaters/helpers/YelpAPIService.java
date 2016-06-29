@@ -1,5 +1,7 @@
 package com.example.amish.pickyeaters.helpers;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -10,6 +12,8 @@ import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.CoordinateOptions;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +43,17 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
         params.put("lang", "en");
     }
 
+    private Bitmap getImageBitMap(String imgUrl) {
+        try {
+            URL newurl = new URL(imgUrl);
+            Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+            return mIcon_val;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     protected void onPreExecute (){
         Log.d("PreExceute","On pre Exceute......");
     }
@@ -59,11 +74,12 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
             for (com.yelp.clientlib.entities.Business  restaurant : searchResponse.businesses()){
                 Double tmp = restaurant.distance()/1000.0;
                 tmp = Math.round(tmp*10.0)/10.0;
+                Bitmap imgBM = getImageBitMap(restaurant.imageUrl());
                 Restaurant r = new Restaurant(restaurant.id(), restaurant.name(),
                         restaurant.displayPhone(),
                         getRestaurantAddress(restaurant.location().displayAddress()),
                         restaurant.imageUrl(), getAllCategories(restaurant.categories()),
-                        restaurant.rating(), tmp);
+                        restaurant.rating(), tmp, imgBM);
                 restaurantList.add(r);
             }
 
