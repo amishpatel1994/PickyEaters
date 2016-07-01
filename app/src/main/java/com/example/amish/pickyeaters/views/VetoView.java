@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 public class VetoView extends AppCompatActivity {
     private RecyclerView recyclerView;
     application mApplication;
+    private ProgressBar vetoProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,13 @@ public class VetoView extends AppCompatActivity {
         mApplication.initVetoController();
 
         final TextView txt = (TextView) findViewById(R.id.topLabel1);
-
+        vetoProgressBar = (ProgressBar) findViewById(R.id.veto_progressBar);
+        vetoProgressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    }
+
+    public void removeVetoProgressBar() {
+        vetoProgressBar.setVisibility(View.GONE);
     }
 
     public void initRecyclerViewWithAdapter(RestaurantsAdapter adapter) {

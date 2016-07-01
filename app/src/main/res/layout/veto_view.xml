@@ -17,6 +17,15 @@
         android:textSize="20sp"
         android:text="Restaurants" />
 
+    <ProgressBar
+        android:id="@+id/veto_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"
