@@ -18,13 +18,14 @@ import android.widget.Toast;
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Akshat on 2016-06-11.
  */
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
-    private List<Restaurant> restaurantList;
+//    private List<Restaurant> restaurantList;
     private Activity activity;
     private application mApplication;
 
@@ -45,10 +46,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     }
 
 
-    public RestaurantsAdapter(List<Restaurant> restaurantList, Activity activity) {
-        this.restaurantList = restaurantList;
+    public RestaurantsAdapter(ArrayList<Restaurant> restaurantList, Activity activity) {
         this.activity = activity;
         mApplication = (application) activity.getApplication();
+        mApplication.restaurants = restaurantList;
     }
 
     @Override
@@ -59,8 +60,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     }
 
     public int getIndexByName(String name) {
-        for (int i = 0; i < restaurantList.size(); i++) {
-            Restaurant rest = restaurantList.get(i);
+        for (int i = 0; i < mApplication.restaurants.size(); i++) {
+            Restaurant rest = mApplication.restaurants.get(i);
             if (rest.getName() == name) {
                 return i;
             }
@@ -71,7 +72,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final Restaurant restaurant = restaurantList.get(position);
+        final Restaurant restaurant = mApplication.restaurants.get(position);
         holder.name.setText(restaurant.getName());
         holder.rating.setText(restaurant.getRating().toString());
         holder.distance.setText(restaurant.getDistance().toString() + " Km");
@@ -85,16 +86,16 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 String restaurantName = (String) ((TextView) view).getText();
                 int targetLocation = getIndexByName(restaurantName);
                 int count = 0;
-                for (Restaurant rest : restaurantList) {
+                for (Restaurant rest : mApplication.restaurants) {
                     if (!rest.isVetoed()) {
                         count++;
                     }
                 }
 
                 //Take user to google maps if last item is clicked
-                if (count == 1 && !restaurantList.get(targetLocation).isVetoed()){
+                if (count == 1 && !mApplication.restaurants.get(targetLocation).isVetoed()){
                     // Create a Uri from an intent string. Use the result to create an Intent.
-                    String address = restaurantList.get(targetLocation).getAddress();
+                    String address = mApplication.restaurants.get(targetLocation).getAddress();
                     Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
 
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -106,7 +107,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 }
 
                 if (targetLocation >= 0 && count > 1) {
-                    restaurantList.get(targetLocation).setVetoed(true);
                     mApplication.restaurants.get(targetLocation).setVetoed(true);
 //                    notifyDataSetChanged();
 
@@ -128,6 +128,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     @Override
     public int getItemCount() {
-        return restaurantList.size();
+        return mApplication.restaurants.size();
     }
 }
