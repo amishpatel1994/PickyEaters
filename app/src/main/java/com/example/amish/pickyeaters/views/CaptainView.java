@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
+import com.example.amish.pickyeaters.controllers.CaptainController;
 
 /**
  * Created by Akshat on 2016-06-24.
@@ -27,6 +28,7 @@ public class CaptainView extends AppCompatActivity {
         setContentView(R.layout.captain_view);
         mApplication = (application)getApplication();
         mApplication.setCaptainView(this);
+        mApplication.initCaptainController();
 
         //Initialising View elements
         btnStart = (Button) findViewById(R.id.captain_startveto_button);
@@ -40,6 +42,7 @@ public class CaptainView extends AppCompatActivity {
     View.OnClickListener btnStartVetoClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            CaptainController tmp = mApplication.getCaptainController();
             mApplication.getCaptainController().startVetoProcess();
         }
     };

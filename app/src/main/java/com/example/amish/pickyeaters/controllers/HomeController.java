@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.amish.pickyeaters.models.HomeModel;
+import com.example.amish.pickyeaters.views.CaptainView;
 import com.example.amish.pickyeaters.views.HomeView;
 import com.example.amish.pickyeaters.application;
 import com.example.amish.pickyeaters.views.VetoView;
@@ -30,6 +31,10 @@ public class HomeController {
         if (view == null){
             mApplication.initHomeController();
         }
+
+        Intent captainIntent = new Intent(view.getApplicationContext(), CaptainView.class);
+        view.startActivity(captainIntent);
+
         Toast.makeText(view.getApplicationContext(), "new button pressed", Toast.LENGTH_SHORT).show();
     }
 

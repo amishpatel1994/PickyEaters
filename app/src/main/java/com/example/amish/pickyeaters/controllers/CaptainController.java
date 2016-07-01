@@ -1,8 +1,11 @@
 package com.example.amish.pickyeaters.controllers;
 
+import android.content.Intent;
+
 import com.example.amish.pickyeaters.application;
 import com.example.amish.pickyeaters.models.CaptainModel;
 import com.example.amish.pickyeaters.views.CaptainView;
+import com.example.amish.pickyeaters.views.VetoView;
 
 /**
  * Created by amish on 30/06/16.
@@ -22,6 +25,7 @@ public class CaptainController {
     }
 
     public void startVetoProcess() {
-
+        Intent vetoIntent = new Intent(view.getApplicationContext(), VetoView.class);
+        view.startActivity(vetoIntent);
     }
 }

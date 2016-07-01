@@ -21,6 +21,9 @@
         <activity android:name=".views.VetoView">
 
         </activity>
+        <activity android:name=".views.CaptainView">
+
+        </activity>
         <activity android:name=".views.HomeView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
