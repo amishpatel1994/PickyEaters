@@ -3,11 +3,14 @@ package com.example.amish.pickyeaters;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.example.amish.pickyeaters.controllers.CaptainController;
 import com.example.amish.pickyeaters.controllers.HomeController;
 import com.example.amish.pickyeaters.controllers.VetoController;
 import com.example.amish.pickyeaters.helpers.Restaurant;
+import com.example.amish.pickyeaters.models.CaptainModel;
 import com.example.amish.pickyeaters.models.HomeModel;
 import com.example.amish.pickyeaters.models.VetoModel;
+import com.example.amish.pickyeaters.views.CaptainView;
 import com.example.amish.pickyeaters.views.HomeView;
 import com.example.amish.pickyeaters.views.VetoView;
 
@@ -24,6 +27,9 @@ public class application extends Application {
     private VetoController vetoController;
     private VetoModel vetoModel;
     private VetoView vetoView;
+    private CaptainModel captainModel;
+    private CaptainView captainView;
+    private CaptainController captainController;
     public ArrayList<Restaurant> restaurants;
 
     public static application getInstance(){
@@ -108,6 +114,39 @@ public class application extends Application {
 
     public void setVetoView(VetoView vetoView) {
         this.vetoView = vetoView;
+    }
+
+    public void setCaptainView(CaptainView captainView) {
+        this.captainView = captainView;
+    }
+
+
+
+    public void initCaptainController() {
+        if (captainController == null) {
+            captainController = new CaptainController();
+        }
+        captainController.init(getCaptainModel(),getCaptainView());
+    }
+
+    public void setCaptainModel(CaptainModel captainModel) {
+        this.captainModel = captainModel;
+    }
+
+    public CaptainModel getCaptainModel() {
+        if (captainModel == null)
+            captainModel = new CaptainModel();
+        return captainModel;
+    }
+
+    public CaptainView getCaptainView() {
+        if (captainView == null)
+            captainView = new CaptainView();
+        return captainView;
+    }
+
+    public CaptainController getCaptainController() {
+        return captainController;
     }
 
     public ArrayList<Restaurant> getRestaurants() {
