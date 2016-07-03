@@ -31,6 +31,7 @@ public class application extends Application {
     private CaptainView captainView;
     private CaptainController captainController;
     public ArrayList<Restaurant> restaurants;
+    public String distanceSetting;
 
     public static application getInstance(){
         return thisApp;
@@ -42,6 +43,7 @@ public class application extends Application {
         thisApp = this;
         homeController = new HomeController();
         restaurants = new ArrayList<Restaurant>();
+        distanceSetting = "";
     }
 
     @Override
@@ -147,6 +149,14 @@ public class application extends Application {
 
     public CaptainController getCaptainController() {
         return captainController;
+    }
+
+    public void setDistanceSetting(String distanceSetting) {
+        this.distanceSetting = distanceSetting;
+    }
+
+    public String getDistanceSetting() {
+        return distanceSetting;
     }
 
     public ArrayList<Restaurant> getRestaurants() {

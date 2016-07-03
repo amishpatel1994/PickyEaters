@@ -30,7 +30,7 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
     private Map<String, String> params = new HashMap<>();
     private ArrayList<Restaurant> restaurantList = new ArrayList<Restaurant>();
 
-    public YelpAPIService(String consumerKey, String consumerSecret, String token, String tokenSecret, int limit) {
+    public YelpAPIService(String consumerKey, String consumerSecret, String token, String tokenSecret, int limit, String distance) {
         apiFactory = new YelpAPIFactory(consumerKey,consumerSecret,token,tokenSecret);
         yelpAPI = apiFactory.createAPI();
 
@@ -38,6 +38,7 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
         params.put("term", "food");
         params.put("limit", String.valueOf(limit));
         params.put("sort", "2");
+        params.put("radius_filter", String.valueOf(Integer.valueOf(distance)*1000));
 
         // locale params
         params.put("lang", "en");

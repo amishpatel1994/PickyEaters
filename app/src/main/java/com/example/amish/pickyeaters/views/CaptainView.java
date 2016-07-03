@@ -43,7 +43,8 @@ public class CaptainView extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             CaptainController tmp = mApplication.getCaptainController();
-            mApplication.getCaptainController().startVetoProcess();
+
+            mApplication.getCaptainController().startVetoProcess(distanceText.getText().toString());
         }
     };
 

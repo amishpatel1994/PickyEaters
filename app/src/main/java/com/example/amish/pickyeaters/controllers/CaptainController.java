@@ -24,8 +24,9 @@ public class CaptainController {
         this.view = view;
     }
 
-    public void startVetoProcess() {
+    public void startVetoProcess(String distance) {
         Intent vetoIntent = new Intent(view.getApplicationContext(), VetoView.class);
+        mApplication.setDistanceSetting(distance);
         view.startActivity(vetoIntent);
     }
 }

@@ -48,7 +48,7 @@ public class VetoController {
     public void getRestaurantsFromYelp() {
         Double[] latAndLng = getLaAndLng();
         YelpAPIService yelpApi = new YelpAPIService(view.getString(R.string.yelp_consumer_key), view.getString(R.string.yelp_consumer_secret),
-                view.getString(R.string.yelp_token), view.getString(R.string.yelp_token_secret),10) {
+                view.getString(R.string.yelp_token), view.getString(R.string.yelp_token_secret),10, mApplication.getDistanceSetting()) {
             @Override public void onPostExecute(ArrayList<Restaurant> result)
             {
                 mApplication.restaurants.addAll(result);
