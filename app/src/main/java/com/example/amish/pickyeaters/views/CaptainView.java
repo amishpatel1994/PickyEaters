@@ -48,6 +48,10 @@ public class CaptainView extends AppCompatActivity {
         }
     };
 
+    public void updateSessionID(String sessID){
+        sessionID.setText(sessID);
+    }
+
     private void initListeners(){
         btnStart.setOnClickListener(btnStartVetoClickListener);
     }

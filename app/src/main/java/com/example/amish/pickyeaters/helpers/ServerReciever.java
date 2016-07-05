@@ -20,7 +20,9 @@ public class ServerReciever {
         mSocket.on("created", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.e("created", "We just recieved created signal yo");
+                String sessionID = (String) args[0];
+                Log.e("created", "Session ID is: " + sessionID);
+                mApplication.getCaptainController().sessionIdUpdated(sessionID);
             }
         });
     }

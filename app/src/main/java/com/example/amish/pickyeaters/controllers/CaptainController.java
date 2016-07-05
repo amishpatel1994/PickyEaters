@@ -49,6 +49,15 @@ public class CaptainController {
         view.startActivity(vetoIntent);
     }
 
+    public void sessionIdUpdated(final String sessID){
+        view.runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                view.updateSessionID(sessID);
+            }
+        });
+    }
+
     public void getRestaurantsFromYelp() {
         Double[] latAndLng = getLaAndLng();
         YelpAPIService yelpApi = new YelpAPIService(view.getString(R.string.yelp_consumer_key), view.getString(R.string.yelp_consumer_secret),
