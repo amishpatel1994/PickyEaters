@@ -14,6 +14,8 @@ import com.example.amish.pickyeaters.views.CaptainView;
 import com.example.amish.pickyeaters.views.HomeView;
 import com.example.amish.pickyeaters.views.VetoView;
 
+import com.github.nkzawa.socketio.client.Socket;
+
 import java.util.ArrayList;
 
 /**
@@ -30,8 +32,10 @@ public class application extends Application {
     private CaptainModel captainModel;
     private CaptainView captainView;
     private CaptainController captainController;
+    private Socket mSocket;
     public ArrayList<Restaurant> restaurants;
     public String distanceSetting;
+
 
     public static application getInstance(){
         return thisApp;
@@ -161,5 +165,13 @@ public class application extends Application {
 
     public ArrayList<Restaurant> getRestaurants() {
         return restaurants;
+    }
+
+    public void setmSocket(Socket mSocket) {
+        this.mSocket = mSocket;
+    }
+
+    public Socket getmSocket() {
+        return mSocket;
     }
 }

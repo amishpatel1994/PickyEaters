@@ -24,6 +24,7 @@ public class HomeView extends AppCompatActivity {
         setContentView(R.layout.home_view);
         mApplication = (application)getApplication();
         mApplication.setHomeView(this);
+        mApplication.initHomeController();
 
         //Initialising buttons
         btnNew = (Button) findViewById(R.id.home_new_button);
