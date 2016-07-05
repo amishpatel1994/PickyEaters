@@ -31,6 +31,7 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
     private ArrayList<Restaurant> restaurantList = new ArrayList<Restaurant>();
 
     public YelpAPIService(String consumerKey, String consumerSecret, String token, String tokenSecret, int limit, String distance) {
+        distance = distance.isEmpty() ? "40" : distance;
         apiFactory = new YelpAPIFactory(consumerKey,consumerSecret,token,tokenSecret);
         yelpAPI = apiFactory.createAPI();
 

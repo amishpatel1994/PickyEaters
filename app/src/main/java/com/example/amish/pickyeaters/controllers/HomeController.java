@@ -3,6 +3,8 @@ package com.example.amish.pickyeaters.controllers;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.amish.pickyeaters.helpers.ServerReciever;
+import com.example.amish.pickyeaters.helpers.ServerSender;
 import com.example.amish.pickyeaters.helpers.ServerWrapper;
 import com.example.amish.pickyeaters.models.HomeModel;
 import com.example.amish.pickyeaters.views.CaptainView;
@@ -19,6 +21,8 @@ public class HomeController {
     private application mApplication;
     private HomeModel model;
     private HomeView view;
+    private ServerSender serverSender;
+    private ServerReciever serverReciever;
 
     public HomeController(){
         mApplication = application.getInstance();
@@ -28,13 +32,14 @@ public class HomeController {
         this.model = model;
         this.view = view;
         initServerConnection();
+        serverSender = new ServerSender();
+        serverReciever = new ServerReciever();
     }
 
     public void newButtonPressed(){
         if (view == null){
             mApplication.initHomeController();
         }
-
 
         Intent captainIntent = new Intent(view.getApplicationContext(), CaptainView.class);
         view.startActivity(captainIntent);
@@ -48,7 +53,7 @@ public class HomeController {
 
         // Initialize socket connection and set it in application to be used by all the controllers
         Socket mSocket = sw.initConnection();
-        mApplication.setmSocket(mSocket);
+        mApplication.setSocket(mSocket);
     }
 
 
@@ -57,9 +62,9 @@ public class HomeController {
         if (view == null){
             mApplication.initHomeController();
         }
+        serverSender.sendMessage("Hello World");
         Intent vetoIntent = new Intent(view.getApplicationContext(), VetoView.class);
-        view.startActivity(vetoIntent);
-//        mApplication.initVetoController();
+        //view.startActivity(vetoIntent);
         Toast.makeText(view.getApplicationContext(), "join button pressed", Toast.LENGTH_SHORT).show();
     }
 }

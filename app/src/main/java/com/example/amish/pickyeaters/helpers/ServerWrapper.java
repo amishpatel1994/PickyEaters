@@ -14,18 +14,14 @@ public class ServerWrapper {
 
     public ServerWrapper (String url) {
         try {
-            Log.e("Before" , "hl");
             mSocket = IO.socket(url);
-            Log.e("After" , ""+mSocket.connected());
         } catch (Exception e) {
             Log.e("Server Error", e.getMessage());
         }
     }
 
     public Socket initConnection() {
-        Log.e("Server before you fuck", ""+mSocket.connected());
         mSocket.connect();
-        Log.e("Server Connect you fuck", ""+mSocket.connected());
         return mSocket;
     }
 }

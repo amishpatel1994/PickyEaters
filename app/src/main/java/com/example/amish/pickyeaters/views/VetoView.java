@@ -42,12 +42,12 @@ public class VetoView extends AppCompatActivity {
 
         final TextView txt = (TextView) findViewById(R.id.topLabel1);
         vetoProgressBar = (ProgressBar) findViewById(R.id.veto_progressBar);
-        vetoProgressBar.setVisibility(View.VISIBLE);
+        //vetoProgressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     }
 
     public void removeVetoProgressBar() {
-        vetoProgressBar.setVisibility(View.GONE);
+        vetoProgressBar.setVisibility(View.INVISIBLE);
     }
 
     public void initRecyclerViewWithAdapter(RestaurantsAdapter adapter) {

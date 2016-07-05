@@ -167,11 +167,11 @@ public class application extends Application {
         return restaurants;
     }
 
-    public void setmSocket(Socket mSocket) {
+    public void setSocket(Socket mSocket) {
         this.mSocket = mSocket;
     }
 
-    public Socket getmSocket() {
+    public Socket getSocket() {
         return mSocket;
     }
 }
