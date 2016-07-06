@@ -2,6 +2,7 @@ package com.example.amish.pickyeaters.helpers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +41,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             rating = (TextView) view.findViewById(R.id.rating);
             description = (TextView) view.findViewById(R.id.description);
             distance = (TextView) view.findViewById(R.id.distance);
-            vetoCheckbox = (CheckBox) view.findViewById(R.id.vetoCheckBox);
+            //vetoCheckbox = (CheckBox) view.findViewById(R.id.vetoCheckBox);
             restaurantImage = (ImageView) view.findViewById(R.id.thumbnailImg);
         }
     }
@@ -56,6 +57,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.restaurant_list_row, parent, false);
+
         return new MyViewHolder(itemView);
     }
 
@@ -69,6 +71,51 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return -1;
     }
 
+    View.OnClickListener clickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            View mView = (View)(v.getParent().getParent());
+            TextView tv = (TextView) mView.findViewById(R.id.name);
+            String restaurantName = (String) tv.getText();
+            Log.e("tv ", restaurantName);
+            int targetLocation = getIndexByName(restaurantName);
+            int count = 0;
+            for (Restaurant rest : mApplication.restaurants) {
+                if (!rest.isVetoed()) {
+                    count++;
+                }
+            }
+
+            //Take user to google maps if last item is clicked
+            if (count == 1 && !mApplication.restaurants.get(targetLocation).isVetoed()){
+                // Create a Uri from an intent string. Use the result to create an Intent.
+                String address = mApplication.restaurants.get(targetLocation).getAddress();
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
+
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+
+                mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity.getApplication().startActivity(mapIntent);
+
+            }
+
+            if (targetLocation >= 0 && count > 1) {
+                mApplication.restaurants.get(targetLocation).setVetoed(true);
+//                    notifyDataSetChanged();
+
+                if (count == 2){
+                    Toast.makeText(activity, "Click on restaurant to go to google maps",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                //holder.itemView.setAlpha(0.5f);
+                //holder.itemView.setBackgroundColor(Color.GRAY);
+            }
+
+            Log.d("clicked", restaurantName);
+        }
+    };
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
@@ -79,51 +126,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         holder.description.setText(restaurant.getDescription());
         holder.restaurantImage.setImageBitmap(restaurant.getImageBitmap());
 
-
-        holder.name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String restaurantName = (String) ((TextView) view).getText();
-                int targetLocation = getIndexByName(restaurantName);
-                int count = 0;
-                for (Restaurant rest : mApplication.restaurants) {
-                    if (!rest.isVetoed()) {
-                        count++;
-                    }
-                }
-
-                //Take user to google maps if last item is clicked
-                if (count == 1 && !mApplication.restaurants.get(targetLocation).isVetoed()){
-                    // Create a Uri from an intent string. Use the result to create an Intent.
-                    String address = mApplication.restaurants.get(targetLocation).getAddress();
-                    Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
-
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
-
-                    mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    activity.getApplication().startActivity(mapIntent);
-
-                }
-
-                if (targetLocation >= 0 && count > 1) {
-                    mApplication.restaurants.get(targetLocation).setVetoed(true);
-//                    notifyDataSetChanged();
-
-                    if (count == 2){
-                        Toast.makeText(activity, "Click on restaurant to go to google maps",
-                                Toast.LENGTH_LONG).show();
-                    }
-
-                    holder.itemView.setAlpha(0.5f);
-                    holder.itemView.setBackgroundColor(Color.GRAY);
-                }
-
-                Log.d("clicked", restaurantName);
-            }
-        });
-
-
+        holder.name.setOnClickListener(clickListener);
+        holder.rating.setOnClickListener(clickListener);
+        holder.distance.setOnClickListener(clickListener);
+        holder.description.setOnClickListener(clickListener);
+        holder.restaurantImage.setOnClickListener(clickListener);
     }
 
     @Override

@@ -31,6 +31,7 @@ public class Restaurant {
         this.description = categories;
         this.distance = distance;
         this.imageBitmap = bm;
+        this.isVetoed = false;
     }
 
     @Override
@@ -145,6 +146,7 @@ public class Restaurant {
             obj.put("imageUrl", this.imageUrl);
             obj.put("description", this.description);
             obj.put("distance", this.distance);
+            obj.put("vetoed", this.isVetoed());
         } catch (JSONException e) {
             e.printStackTrace();
         }

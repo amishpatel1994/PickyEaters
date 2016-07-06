@@ -16,6 +16,7 @@ import android.widget.Adapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;

@@ -43,7 +43,12 @@ public class CaptainController {
 
     public void startVetoProcess(String distance) {
         Intent vetoIntent = new Intent(view.getApplicationContext(), VetoView.class);
-        mApplication.setDistanceSetting(distance);
+        if(distance.isEmpty() || Integer.parseInt(distance) > 40 ){
+            mApplication.setDistanceSetting("40");
+        }
+        else {
+            mApplication.setDistanceSetting(distance);
+        }
         view.startActivity(vetoIntent);
     }
 

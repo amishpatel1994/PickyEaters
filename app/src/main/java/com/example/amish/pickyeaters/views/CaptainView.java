@@ -2,6 +2,7 @@ package com.example.amish.pickyeaters.views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
 import com.example.amish.pickyeaters.controllers.CaptainController;
+import com.example.amish.pickyeaters.helpers.Restaurant;
 import com.example.amish.pickyeaters.models.CaptainModel;
+
+import java.util.ArrayList;
 
 /**
  * Created by Akshat on 2016-06-24.
@@ -44,6 +48,13 @@ public class CaptainView extends AppCompatActivity {
         }
 
         initListeners();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mApplication.setRestaurants(new ArrayList<Restaurant>());
+        Log.e("Bitch please","Baby please");
     }
 
     View.OnClickListener btnStartVetoClickListener = new View.OnClickListener() {
