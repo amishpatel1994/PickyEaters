@@ -36,6 +36,16 @@ public class application extends Application {
     public ArrayList<Restaurant> restaurants;
     public String distanceSetting;
 
+    public boolean isCaptain() {
+        return isCaptain;
+    }
+
+    public void setCaptain(boolean captain) {
+        isCaptain = captain;
+    }
+
+    private boolean isCaptain;
+
 
     public static application getInstance(){
         return thisApp;
@@ -104,6 +114,10 @@ public class application extends Application {
         if (vetoView == null)
             vetoView = new VetoView();
         return vetoView;
+    }
+
+    public VetoController getVetoController() {
+        return vetoController;
     }
 
     public void setVetoController(VetoController vetoController) {

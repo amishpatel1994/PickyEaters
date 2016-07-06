@@ -26,6 +26,10 @@ public class ServerSender {
         mSocket.emit(message);
     }
 
+    public void sendMessage(String message, String value) {
+        mSocket.emit(message, value);
+    }
+
     public void sendMessage(String message, ArrayList<JSONObject> obj){
         mSocket.emit(message, obj);
     }

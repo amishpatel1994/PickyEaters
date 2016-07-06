@@ -6,17 +6,17 @@ package com.example.amish.pickyeaters.models;
 
 public class HomeModel {
 
-    private int sessionID;
+    private String sessionID;
 
     public HomeModel(){
 
     }
 
-    public int getSessionID() {
+    public String getSessionID() {
         return sessionID;
     }
 
-    public void setSessionID(int sessionID) {
+    public void setSessionID(String sessionID) {
         this.sessionID = sessionID;
     }
 }

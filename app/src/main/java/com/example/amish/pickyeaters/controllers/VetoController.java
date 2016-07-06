@@ -41,7 +41,12 @@ public class VetoController {
         this.model = mod;
         serverSender = new ServerSender();
         initRestaurantAdapter();
-        getRestaurantsFromYelp();
+
+        // If captain, get restaurants and send to the server
+        // else wait for the server to respond with the restaurants
+        if (mApplication.isCaptain()) {
+            getRestaurantsFromYelp();
+        }
     }
 
     public void initRestaurantAdapter() {
@@ -104,5 +109,10 @@ public class VetoController {
         }
         Double[] latLng = {lat,lng};
         return latLng;
+    }
+
+    // Execute this when the server responds with the restaurants
+    public void populateWithRestaurants(ArrayList<Restaurant> restaurants) {
+        Log.d("Restaurants populated", restaurants.toString());
     }
 }

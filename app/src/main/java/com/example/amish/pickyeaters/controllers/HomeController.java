@@ -43,13 +43,13 @@ public class HomeController {
         serverSender.sendMessage("createSession");
         Intent captainIntent = new Intent(view.getApplicationContext(), CaptainView.class);
         view.startActivity(captainIntent);
-
+        mApplication.setCaptain(true);
         Toast.makeText(view.getApplicationContext(), "new button pressed", Toast.LENGTH_SHORT).show();
     }
 
     // Creates a ServerWrapper instance and calls it's init method to create a socket connection
     private void initServerConnection() {
-        ServerWrapper sw = new ServerWrapper("http://10.0.2.2:3000");
+        ServerWrapper sw = new ServerWrapper("https://shielded-woodland-35103.herokuapp.com/");
 
         // Initialize socket connection and set it in application to be used by all the controllers
         Socket mSocket = sw.initConnection();
@@ -62,7 +62,12 @@ public class HomeController {
         if (view == null){
             mApplication.initHomeController();
         }
-        serverSender.sendMessage("Hello World");
+        model.setSessionID(view.getSessionIDEditText().getText().toString());
+        mApplication.setCaptain(false);
+
+        serverSender.sendMessage("join", model.getSessionID());
+        //serverSender.sendMessage("Hello World");
+
         Intent vetoIntent = new Intent(view.getApplicationContext(), VetoView.class);
         view.startActivity(vetoIntent);
         Toast.makeText(view.getApplicationContext(), "join button pressed", Toast.LENGTH_SHORT).show();

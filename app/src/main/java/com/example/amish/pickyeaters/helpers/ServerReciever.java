@@ -6,6 +6,8 @@ import com.example.amish.pickyeaters.application;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.Socket;
 
+import java.util.ArrayList;
+
 /**
  * Created by Akshat on 2016-07-05.
  */
@@ -29,6 +31,34 @@ public class ServerReciever {
                 if(mApplication.getCaptainController() != null){
                     mApplication.getCaptainController().sessionIdUpdated(sessionID);
                 }
+            }
+        });
+
+        mSocket.on("started", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                String numVotes = args[0].toString();
+                String restaurantList = args[1].toString();
+
+                // Parse the JSON String to List of restaurants
+                JSONParser jp = new JSONParser(restaurantList);
+                ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+                try {
+                    restaurants = jp.getRestaurantList();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (!restaurants.isEmpty()) {
+                    mApplication.getVetoController().populateWithRestaurants(restaurants);
+                    for (Restaurant r : restaurants) {
+                        Log.d("RESTAURANT", r.getName());
+                    }
+                } else {
+                    Log.d("didn't work", "bruh");
+                }
+
+                Log.d("GOT THE LIST", numVotes);
             }
         });
     }
