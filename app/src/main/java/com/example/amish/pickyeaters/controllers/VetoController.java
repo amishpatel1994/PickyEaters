@@ -113,6 +113,16 @@ public class VetoController {
 
     // Execute this when the server responds with the restaurants
     public void populateWithRestaurants(ArrayList<Restaurant> restaurants) {
+        mApplication.restaurants.addAll(restaurants);
+
+        view.runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                model.getRestaurantsAdapter().notifyDataSetChanged();
+                view.removeVetoProgressBar();
+            }
+        });
+
         Log.d("Restaurants populated", restaurants.toString());
     }
 }

@@ -50,10 +50,11 @@ public class ServerReciever {
                 }
 
                 if (!restaurants.isEmpty()) {
-                    mApplication.getVetoController().populateWithRestaurants(restaurants);
                     for (Restaurant r : restaurants) {
-                        Log.d("RESTAURANT", r.getName());
+                        r.setImageBitmap(ImgUrlToBitMapConverter.convert(r.getImageUrl()));
                     }
+                    mApplication.getVetoController().populateWithRestaurants(restaurants);
+
                 } else {
                     Log.d("didn't work", "bruh");
                 }

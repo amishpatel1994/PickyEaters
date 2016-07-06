@@ -76,7 +76,7 @@ public class YelpAPIService extends AsyncTask<Double, Void, ArrayList<Restaurant
             for (com.yelp.clientlib.entities.Business  restaurant : searchResponse.businesses()){
                 Double tmp = restaurant.distance()/1000.0;
                 tmp = Math.round(tmp*10.0)/10.0;
-                Bitmap imgBM = getImageBitMap(restaurant.imageUrl());
+                Bitmap imgBM = ImgUrlToBitMapConverter.convert(restaurant.imageUrl());
                 Restaurant r = new Restaurant(restaurant.id(), restaurant.name(),
                         restaurant.displayPhone(),
                         getRestaurantAddress(restaurant.location().displayAddress()),
