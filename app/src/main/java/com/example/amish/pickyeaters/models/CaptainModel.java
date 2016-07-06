@@ -5,6 +5,7 @@ package com.example.amish.pickyeaters.models;
  */
 public class CaptainModel {
     private int numUsers;
+    private String sessID;
 
     public CaptainModel() {
         numUsers = 0;
@@ -16,5 +17,12 @@ public class CaptainModel {
 
     public void setNumUsers(int numUsers) {
         this.numUsers = numUsers;
+    }
+    public String getSessID() {
+        return sessID;
+    }
+
+    public void setSessID(String sessID) {
+        this.sessID = sessID;
     }
 }

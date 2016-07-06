@@ -40,7 +40,7 @@ public class HomeController {
         if (view == null){
             mApplication.initHomeController();
         }
-
+        serverSender.sendMessage("createSession");
         Intent captainIntent = new Intent(view.getApplicationContext(), CaptainView.class);
         view.startActivity(captainIntent);
 
@@ -64,7 +64,7 @@ public class HomeController {
         }
         serverSender.sendMessage("Hello World");
         Intent vetoIntent = new Intent(view.getApplicationContext(), VetoView.class);
-        //view.startActivity(vetoIntent);
+        view.startActivity(vetoIntent);
         Toast.makeText(view.getApplicationContext(), "join button pressed", Toast.LENGTH_SHORT).show();
     }
 }

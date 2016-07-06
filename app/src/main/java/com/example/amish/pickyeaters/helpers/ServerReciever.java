@@ -21,8 +21,14 @@ public class ServerReciever {
             @Override
             public void call(Object... args) {
                 String sessionID = (String) args[0];
-                Log.e("created", "Session ID is: " + sessionID);
-                mApplication.getCaptainController().sessionIdUpdated(sessionID);
+                Log.d("created", "Session ID is: " + sessionID);
+                mApplication.getCaptainModel().setSessID(sessionID);
+
+                //To check if captain controller was created already, if not the line of code will handle it.
+                //This is just to eliminate race condition
+                if(mApplication.getCaptainController() != null){
+                    mApplication.getCaptainController().sessionIdUpdated(sessionID);
+                }
             }
         });
     }

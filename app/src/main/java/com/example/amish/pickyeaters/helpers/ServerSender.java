@@ -1,5 +1,7 @@
 package com.example.amish.pickyeaters.helpers;
 
+import android.util.Log;
+
 import com.example.amish.pickyeaters.application;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -20,10 +22,11 @@ public class ServerSender {
     }
 
     public void sendMessage(String message) {
-        mSocket.emit("createSession");
+        Log.d("ServerSender,", message);
+        mSocket.emit(message);
     }
 
-    public void sendMessage(ArrayList<JSONObject> obj){
-        mSocket.emit("createSession", obj);
+    public void sendMessage(String message, ArrayList<JSONObject> obj){
+        mSocket.emit(message, obj);
     }
 }

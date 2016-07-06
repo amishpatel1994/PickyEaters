@@ -30,7 +30,6 @@ public class CaptainController {
     private CaptainModel model;
     private CaptainView view;
     private ServerSender serverSender;
-    private ArrayList<JSONObject> jsonArray;
 
     public CaptainController(){
         mApplication = application.getInstance();
@@ -40,7 +39,6 @@ public class CaptainController {
         this.model = model;
         this.view = view;
         serverSender = new ServerSender();
-        getRestaurantsFromYelp();
     }
 
     public void startVetoProcess(String distance) {
@@ -56,61 +54,5 @@ public class CaptainController {
                 view.updateSessionID(sessID);
             }
         });
-    }
-
-    public void getRestaurantsFromYelp() {
-        Double[] latAndLng = getLaAndLng();
-        YelpAPIService yelpApi = new YelpAPIService(view.getString(R.string.yelp_consumer_key), view.getString(R.string.yelp_consumer_secret),
-                view.getString(R.string.yelp_token), view.getString(R.string.yelp_token_secret),10, mApplication.getDistanceSetting()) {
-            @Override public void onPostExecute(ArrayList<Restaurant> result)
-            {
-                mApplication.restaurants.addAll(result);
-
-                //Make an array JSON objects out of all restaurants and send to server
-                jsonArray = new ArrayList<JSONObject>();
-                for (Restaurant rest : mApplication.restaurants){
-                    jsonArray.add(rest.getJSON());
-                }
-                serverSender.sendMessage(jsonArray);
-                //mApplication.getVetoModel().getRestaurantsAdapter().notifyDataSetChanged();
-                //mApplication.getVetoView().removeVetoProgressBar();
-            }
-        };
-
-        yelpApi.execute(latAndLng[0],latAndLng[1]);
-    }
-
-    public Double[] getLaAndLng () {
-        // Defaults to latitude and longitude of San Francisco
-        double lat = 37.7749;
-        double lng = -122.4194;
-
-        // Get the latitude and longitude based on android
-        LocationManager lManager = (LocationManager)view.getSystemService(Context.LOCATION_SERVICE);
-        boolean netEnabled = lManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        if (netEnabled) {
-            // checks if we have the required permissions. If we don't, then request them
-            if (ContextCompat.checkSelfPermission(view, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
-                    PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(view, android.Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                            PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(view,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                        0);
-            }
-            // Get the location (lat, lng)
-            Location location = lManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location != null)
-            {
-                lat = location.getLatitude();
-                lng = location.getLongitude();
-            }
-
-            Log.d("location latitude", Double.toString(lat));
-            Log.d("location longitude", Double.toString(lng));
-
-        }
-        Double[] latLng = {lat,lng};
-        return latLng;
     }
 }

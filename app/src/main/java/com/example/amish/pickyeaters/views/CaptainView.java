@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
 import com.example.amish.pickyeaters.controllers.CaptainController;
+import com.example.amish.pickyeaters.models.CaptainModel;
 
 /**
  * Created by Akshat on 2016-06-24.
@@ -21,6 +22,7 @@ public class CaptainView extends AppCompatActivity {
     TextView sessionID;
     EditText distanceText;
     TextView userCount;
+    CaptainModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +31,17 @@ public class CaptainView extends AppCompatActivity {
         mApplication = (application)getApplication();
         mApplication.setCaptainView(this);
         mApplication.initCaptainController();
+        model = mApplication.getCaptainModel();
 
         //Initialising View elements
         btnStart = (Button) findViewById(R.id.captain_startveto_button);
         sessionID = (TextView) findViewById(R.id.captain_session_id);
         distanceText = (EditText) findViewById(R.id.captain_distanceEditText);
         userCount = (TextView) findViewById(R.id.captain_userCount);
+
+        if(model.getSessID() != null){
+            sessionID.setText(model.getSessID());
+        }
 
         initListeners();
     }
