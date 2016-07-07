@@ -29,6 +29,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 //    private List<Restaurant> restaurantList;
     private Activity activity;
     private application mApplication;
+    //Number of restaurants that are Vetoed
+    private int count = 0;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, rating, phone, description, distance;
@@ -75,19 +77,21 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         @Override
         public void onClick(View v) {
             View mView = (View)(v.getParent().getParent());
+            int listSize = mApplication.restaurants.size();
+
             TextView tv = (TextView) mView.findViewById(R.id.name);
             String restaurantName = (String) tv.getText();
-            Log.e("tv ", restaurantName);
+
             int targetLocation = getIndexByName(restaurantName);
-            int count = 0;
-            for (Restaurant rest : mApplication.restaurants) {
-                if (!rest.isVetoed()) {
-                    count++;
-                }
+
+            if(targetLocation >= 0){
+                mApplication.restaurants.get(targetLocation).setVetoed(true);
+                count++;
             }
+            Log.e("tv ", restaurantName+" size: "+listSize+" count: "+count);
 
             //Take user to google maps if last item is clicked
-            if (count == 1 && !mApplication.restaurants.get(targetLocation).isVetoed()){
+            if (count == listSize){
                 // Create a Uri from an intent string. Use the result to create an Intent.
                 String address = mApplication.restaurants.get(targetLocation).getAddress();
                 Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
@@ -98,21 +102,21 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.getApplication().startActivity(mapIntent);
 
+            } else{
+                //Not last item, grey it out
+                mView.findViewById(R.id.row_list_layout).setAlpha(0.5f);
+                mView.findViewById(R.id.row_list_layout).setBackgroundColor(Color.GRAY);
             }
 
             if (targetLocation >= 0 && count > 1) {
-                mApplication.restaurants.get(targetLocation).setVetoed(true);
-//                    notifyDataSetChanged();
+//                  mApplication.restaurants.get(targetLocation).setVetoed(true);
+//                  notifyDataSetChanged();
 
-                if (count == 2){
+                if (count == listSize-1){
                     Toast.makeText(activity, "Click on restaurant to go to google maps",
                             Toast.LENGTH_LONG).show();
                 }
-
-                //holder.itemView.setAlpha(0.5f);
-                //holder.itemView.setBackgroundColor(Color.GRAY);
             }
-
             Log.d("clicked", restaurantName);
         }
     };

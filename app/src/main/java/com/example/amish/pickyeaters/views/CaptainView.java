@@ -54,7 +54,6 @@ public class CaptainView extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mApplication.setRestaurants(new ArrayList<Restaurant>());
-        Log.e("Bitch please","Baby please");
     }
 
     View.OnClickListener btnStartVetoClickListener = new View.OnClickListener() {
