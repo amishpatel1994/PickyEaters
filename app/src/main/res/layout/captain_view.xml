@@ -53,7 +53,7 @@
         android:layout_marginTop="50dp"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:text="Number of users joined:"
+        android:text="Total Users in Session:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -61,7 +61,7 @@
         android:id="@+id/captain_userCount"
         android:layout_below="@id/captain_numUsersTitle"
         android:layout_centerHorizontal="true"
-        android:text="0"
+        android:text="1"
         android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
