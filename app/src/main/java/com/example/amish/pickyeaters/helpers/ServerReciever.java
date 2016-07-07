@@ -49,7 +49,9 @@ public class ServerReciever {
         mSocket.on("started", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                String numVotes = args[0].toString();
+                int numVotes = (int) args[0];
+                mApplication.getVetoModel().setNumVotes(numVotes);
+
                 String restaurantList = args[1].toString();
 
                 // Parse the JSON String to List of restaurants
@@ -72,8 +74,8 @@ public class ServerReciever {
                        Log.d("didn't work", "bruh");
                    }
                }
-
-                Log.d("GOT THE LIST", numVotes);
+                Integer votes = mApplication.getVetoModel().getNumVotes();
+                Log.d("NUMBERVotes", votes.toString());
             }
         });
     }
