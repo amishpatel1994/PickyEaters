@@ -79,6 +79,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     View.OnClickListener clickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
+
+            int numVetoesLeft = mApplication.getVetoModel().getNumVotes();
+            if ( numVetoesLeft <= 0){
+                Log.e("clicked", "cant vote, votes are: "+numVetoesLeft);
+                return;
+            }
+            Log.e("clicked", "Voted numVotes left: "+numVetoesLeft);
+
             View mView = (View)(v.getParent().getParent());
             int listSize = mApplication.restaurants.size();
 
@@ -91,7 +99,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 mApplication.restaurants.get(targetLocation).setVetoed(true);
                 count++;
             }
-            Log.e("tv ", restaurantName+" size: "+listSize+" count: "+count);
+            //Log.e("tv ", restaurantName+" size: "+listSize+" count: "+count);
 
             //Take user to google maps if last item is clicked
             if (count == listSize){

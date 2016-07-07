@@ -39,6 +39,12 @@ public class ServerReciever {
             public void call(Object... args) {
                 boolean userVoteCounted = (boolean) args[0];
                 String restaurantName = (String) args[1];
+
+                if (userVoteCounted){
+                    int curVotes = mApplication.getVetoModel().getNumVotes();
+                    curVotes--;
+                    mApplication.getVetoModel().setNumVotes(curVotes);
+                }
                 Log.e("vetoed", " restaurant: " + restaurantName + "vetoed: " + userVoteCounted);
             }
         });
