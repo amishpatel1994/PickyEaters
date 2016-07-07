@@ -21,7 +21,7 @@
         android:id="@+id/captain_session_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="29A4"
+        android:text="- - - -"
         android:textColor="@color/maroon"
         android:textSize="72dp"
         android:layout_below="@id/captain_session_text"
