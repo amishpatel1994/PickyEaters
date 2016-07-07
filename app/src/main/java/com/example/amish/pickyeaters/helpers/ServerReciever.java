@@ -1,6 +1,9 @@
 package com.example.amish.pickyeaters.helpers;
 
+import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.example.amish.pickyeaters.application;
 import com.github.nkzawa.emitter.Emitter;
@@ -45,7 +48,11 @@ public class ServerReciever {
                     curVotes--;
                     mApplication.getVetoModel().setNumVotes(curVotes);
                 }
-                Log.e("vetoed", " restaurant: " + restaurantName + "vetoed: " + userVoteCounted);
+                int restaurantPosInList = mApplication.getRestaurantIndexByName(restaurantName);
+                if(userVoteCounted == false){
+                    mApplication.getVetoController().DisableRowAt(restaurantPosInList);
+                }
+                Log.e("vetoed", " restaurant: " + restaurantName + " vetoed: " + userVoteCounted + " pos:" + restaurantPosInList);
             }
         });
 

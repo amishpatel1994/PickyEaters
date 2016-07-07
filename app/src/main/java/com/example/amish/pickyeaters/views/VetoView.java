@@ -57,6 +57,7 @@ public class VetoView extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        //recyclerView.findViewHolderForLayoutPosition()
     }
 
     public RecyclerView getRecyclerView() {

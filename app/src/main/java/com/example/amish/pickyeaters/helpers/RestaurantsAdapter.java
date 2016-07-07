@@ -66,16 +66,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return new MyViewHolder(itemView);
     }
 
-    public int getIndexByName(String name) {
-        for (int i = 0; i < mApplication.restaurants.size(); i++) {
-            Restaurant rest = mApplication.restaurants.get(i);
-            if (rest.getName() == name) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     View.OnClickListener clickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
@@ -85,7 +75,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 Log.e("clicked", "cant vote, votes are: "+numVetoesLeft);
                 return;
             }
-            Log.e("clicked", "Voted numVotes left: "+numVetoesLeft);
+            Log.d("clicked", "Voted numVotes left: "+numVetoesLeft);
 
             View mView = (View)(v.getParent().getParent());
             int listSize = mApplication.restaurants.size();
@@ -93,7 +83,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             TextView tv = (TextView) mView.findViewById(R.id.name);
             String restaurantName = (String) tv.getText();
 
-            int targetLocation = getIndexByName(restaurantName);
+            int targetLocation = mApplication.getRestaurantIndexByName(restaurantName);
 
             if(targetLocation >= 0){
                 mApplication.restaurants.get(targetLocation).setVetoed(true);

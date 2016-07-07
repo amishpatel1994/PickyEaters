@@ -65,6 +65,20 @@ public class application extends Application {
         super.onConfigurationChanged(newConfig);
     }
 
+    public int getRestaurantIndexByName(String name) {
+        int pos = -1;
+        for (int i = 0; i < restaurants.size(); i++) {
+
+            Restaurant rest = restaurants.get(i);
+            String restName = rest.getName();
+
+            if (restName.equals(name) == true) {
+                pos = i;
+            }
+        }
+        return pos;
+    }
+
     public void initHomeController(){
         homeController.init(getHomeModel(), getHomeView());
     }

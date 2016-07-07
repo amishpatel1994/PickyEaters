@@ -2,11 +2,13 @@ package com.example.amish.pickyeaters.controllers;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
@@ -53,6 +55,17 @@ public class VetoController {
         final RestaurantsAdapter mAdapter = new RestaurantsAdapter(mApplication.getRestaurants(), view);
         view.initRecyclerViewWithAdapter(mAdapter);
         model.setRestaurantsAdapter(mAdapter);
+    }
+
+    public void DisableRowAt(final int position) {
+        view.runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                RelativeLayout myChild = (RelativeLayout) view.getRecyclerView().getChildAt(position);
+                myChild.setAlpha(0.5f);
+                myChild.setBackgroundColor(Color.GRAY);
+            }
+        });
     }
 
     public void getRestaurantsFromYelp() {
