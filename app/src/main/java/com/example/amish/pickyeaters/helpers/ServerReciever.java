@@ -34,6 +34,15 @@ public class ServerReciever {
             }
         });
 
+        mSocket.on("vetoed", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                boolean userVoteCounted = (boolean) args[0];
+                String restaurantName = (String) args[1];
+                Log.e("vetoed", " restaurant: " + restaurantName + "vetoed: " + userVoteCounted);
+            }
+        });
+
         mSocket.on("joined", new Emitter.Listener(){
            @Override
            public void call(Object... args) {

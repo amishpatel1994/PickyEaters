@@ -34,4 +34,6 @@ public class ServerSender {
     public void sendMessage(String message, ArrayList<JSONObject> obj){
         mSocket.emit(message, obj);
     }
+
+
 }

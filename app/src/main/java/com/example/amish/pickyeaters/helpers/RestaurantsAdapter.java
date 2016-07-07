@@ -29,6 +29,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 //    private List<Restaurant> restaurantList;
     private Activity activity;
     private application mApplication;
+    private ServerSender serverSender;
     //Number of restaurants that are Vetoed
     private int count = 0;
 
@@ -39,6 +40,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         public MyViewHolder(View view) {
             super(view);
+            serverSender = new ServerSender();
+
             name = (TextView) view.findViewById(R.id.name);
             rating = (TextView) view.findViewById(R.id.rating);
             description = (TextView) view.findViewById(R.id.description);
@@ -104,6 +107,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
             } else{
                 //Not last item, grey it out
+                serverSender.sendMessage("veto", restaurantName);
                 mView.findViewById(R.id.row_list_layout).setAlpha(0.5f);
                 mView.findViewById(R.id.row_list_layout).setBackgroundColor(Color.GRAY);
             }
