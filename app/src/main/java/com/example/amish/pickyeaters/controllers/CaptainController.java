@@ -60,4 +60,16 @@ public class CaptainController {
             }
         });
     }
+
+    // Update the number of users when server replies with a "joined" event meaning
+    // another user joined the session
+    public void updateNumberOfUsers(final String numUsers) {
+        view.runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                view.updateNumUsersField(numUsers);
+            }
+        });
+
+    }
 }

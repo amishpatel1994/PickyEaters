@@ -27,6 +27,7 @@ public class ServerSender {
     }
 
     public void sendMessage(String message, String value) {
+        Log.d("Send", "The message: " + message + ", value: " + value);
         mSocket.emit(message, value);
     }
 

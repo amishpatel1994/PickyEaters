@@ -4,18 +4,18 @@ package com.example.amish.pickyeaters.models;
  * Created by amish on 30/06/16.
  */
 public class CaptainModel {
-    private int numUsers;
+    private String numUsers;
     private String sessID;
 
     public CaptainModel() {
-        numUsers = 0;
+        numUsers = "0";
     }
 
-    public int getNumUsers() {
+    public String getNumUsers() {
         return numUsers;
     }
 
-    public void setNumUsers(int numUsers) {
+    public void setNumUsers(String numUsers) {
         this.numUsers = numUsers;
     }
     public String getSessID() {

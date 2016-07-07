@@ -34,6 +34,18 @@ public class ServerReciever {
             }
         });
 
+        mSocket.on("joined", new Emitter.Listener(){
+           @Override
+           public void call(Object... args) {
+               if (mApplication.isCaptain()) {
+                   mApplication.getCaptainModel().setNumUsers(args[0].toString());
+                   if (mApplication.getCaptainController() != null) {
+                        mApplication.getCaptainController().updateNumberOfUsers(args[0].toString());
+                   }
+               }
+           }
+        });
+
         mSocket.on("started", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -41,23 +53,25 @@ public class ServerReciever {
                 String restaurantList = args[1].toString();
 
                 // Parse the JSON String to List of restaurants
-                JSONParser jp = new JSONParser(restaurantList);
-                ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
-                try {
-                    restaurants = jp.getRestaurantList();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+               if (!mApplication.isCaptain()) {
+                   JSONParser jp = new JSONParser(restaurantList);
+                   ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+                   try {
+                       restaurants = jp.getRestaurantList();
+                   } catch (Exception e) {
+                       e.printStackTrace();
+                   }
 
-                if (!restaurants.isEmpty()) {
-                    for (Restaurant r : restaurants) {
-                        r.setImageBitmap(ImgUrlToBitMapConverter.convert(r.getImageUrl()));
-                    }
-                    mApplication.getVetoController().populateWithRestaurants(restaurants);
+                   if (!restaurants.isEmpty()) {
+                       for (Restaurant r : restaurants) {
+                           r.setImageBitmap(ImgUrlToBitMapConverter.convert(r.getImageUrl()));
+                       }
+                       mApplication.getVetoController().populateWithRestaurants(restaurants);
 
-                } else {
-                    Log.d("didn't work", "bruh");
-                }
+                   } else {
+                       Log.d("didn't work", "bruh");
+                   }
+               }
 
                 Log.d("GOT THE LIST", numVotes);
             }

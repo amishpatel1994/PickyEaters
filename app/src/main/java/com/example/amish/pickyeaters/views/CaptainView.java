@@ -66,8 +66,23 @@ public class CaptainView extends AppCompatActivity {
         }
     };
 
-    public void updateSessionID(String sessID){
-        sessionID.setText(sessID);
+    // Update session id when the server sends one
+    // If the session parameter is not empty, then set the text to that immediately
+    // else just get the session id from the model itself
+    public void updateSessionID(String session){
+        if (!session.isEmpty()) {
+            sessionID.setText(session);
+        } else {
+            sessionID.setText(model.getSessID());
+        }
+    }
+
+    public void updateNumUsersField(String numUsers) {
+        if (!numUsers.isEmpty()) {
+            userCount.setText(numUsers);
+        } else {
+            userCount.setText(model.getNumUsers());
+        }
     }
 
     private void initListeners(){

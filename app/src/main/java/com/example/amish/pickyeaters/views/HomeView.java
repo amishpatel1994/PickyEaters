@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
+import com.example.amish.pickyeaters.models.HomeModel;
 
 /**
  * Created by Akshat on 2016-06-22.
@@ -19,6 +20,7 @@ public class HomeView extends AppCompatActivity {
     Button btnNew;
     Button btnJoin;
     EditText sessionIDEditText;
+    HomeModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class HomeView extends AppCompatActivity {
         mApplication = (application)getApplication();
         mApplication.setHomeView(this);
         mApplication.initHomeController();
+        model = mApplication.getHomeModel();
 
         //Initialising buttons
         btnNew = (Button) findViewById(R.id.home_new_button);
@@ -44,6 +47,11 @@ public class HomeView extends AppCompatActivity {
         return sessionIDEditText;
     }
 
+    // Update the number of users
+    public void updateSessionEditText() {
+        sessionIDEditText.setText(model.getSessionID());
+    }
+
     View.OnClickListener btnNewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -55,8 +63,9 @@ public class HomeView extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             mApplication.getHomeController().joinButtonPressed();
-}
+    }
 };
+
 
 }
 
