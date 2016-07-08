@@ -38,9 +38,9 @@ public class VetoController {
         mApplication = application.getInstance();
     }
 
-    public void init(VetoModel mod, VetoView v) {
+    public void init(VetoModel m, VetoView v) {
         this.view = v;
-        this.model = mod;
+        this.model = m;
         serverSender = new ServerSender();
         initRestaurantAdapter();
 

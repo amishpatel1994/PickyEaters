@@ -1,9 +1,6 @@
 package com.example.amish.pickyeaters.helpers;
 
-import android.graphics.Color;
 import android.util.Log;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.example.amish.pickyeaters.application;
 import com.github.nkzawa.emitter.Emitter;
