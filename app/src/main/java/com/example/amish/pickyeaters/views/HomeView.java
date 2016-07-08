@@ -16,11 +16,11 @@ import com.example.amish.pickyeaters.models.HomeModel;
  */
 public class HomeView extends AppCompatActivity {
 
-    application mApplication;
-    Button btnNew;
-    Button btnJoin;
-    EditText sessionIDEditText;
-    HomeModel model;
+    private application mApplication;
+    private Button btnNew;
+    private Button btnJoin;
+    private EditText sessionIDEditText;
+    private HomeModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
