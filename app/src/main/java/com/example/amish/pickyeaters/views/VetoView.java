@@ -1,36 +1,22 @@
 package com.example.amish.pickyeaters.views;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
-import com.example.amish.pickyeaters.helpers.JSONParser;
-import com.example.amish.pickyeaters.helpers.Restaurant;
 import com.example.amish.pickyeaters.helpers.RestaurantsAdapter;
-import com.example.amish.pickyeaters.helpers.YelpAPIService;
-
-import java.util.ArrayList;
 
 
 public class VetoView extends AppCompatActivity {
     private RecyclerView recyclerView;
-    application mApplication;
+    private application mApplication;
     private ProgressBar vetoProgressBar;
 
     @Override
