@@ -21,12 +21,12 @@ import java.util.ArrayList;
  */
 public class CaptainView extends AppCompatActivity {
 
-    application mApplication;
-    Button btnStart;
-    TextView sessionID;
-    EditText distanceText;
-    TextView userCount;
-    CaptainModel model;
+    private application mApplication;
+    private Button btnStart;
+    private TextView sessionID;
+    private EditText distanceText;
+    private TextView userCount;
+    private CaptainModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
