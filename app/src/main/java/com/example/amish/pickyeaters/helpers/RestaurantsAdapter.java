@@ -2,7 +2,6 @@ package com.example.amish.pickyeaters.helpers;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +18,6 @@ import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Akshat on 2016-06-11.
