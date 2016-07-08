@@ -80,7 +80,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             int targetLocation = mApplication.getRestaurantIndexByName(restaurantName);
 
             if ( numVetoesLeft <= 0){
-                Log.e("clicked", "cant vote, votes are: "+numVetoesLeft);
+                Log.d("RestaurantsAdapter: ", "cant vote, votes left are: "+numVetoesLeft);
                 //Check if the item that was clicked was the last item to be vetoed
                 if (count+1 == listSize){
                     // Create a Uri from an intent string. Use the result to create an Intent.
@@ -102,7 +102,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 mApplication.restaurants.get(targetLocation).setVetoed(true);
                 count++;
             }
-            //Log.e("tv ", restaurantName+" size: "+listSize+" count: "+count);
+            Log.d("tv ", restaurantName+" size: "+listSize+" count: "+count);
 
             //Take user to google maps if last item is clicked
             if (count != listSize){
@@ -120,7 +120,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                             Toast.LENGTH_LONG).show();
                 }
             }
-            Log.d("clicked", restaurantName);
         }
     };
 
