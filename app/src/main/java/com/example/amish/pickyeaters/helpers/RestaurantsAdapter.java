@@ -71,12 +71,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         public void onClick(View v) {
 
             int numVetoesLeft = mApplication.getVetoModel().getNumVotes();
-            if ( numVetoesLeft <= 0){
-                Log.e("clicked", "cant vote, votes are: "+numVetoesLeft);
-                return;
-            }
-            Log.d("clicked", "Voted numVotes left: "+numVetoesLeft);
-
             View mView = (View)(v.getParent().getParent());
             int listSize = mApplication.restaurants.size();
 
@@ -85,6 +79,25 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
             int targetLocation = mApplication.getRestaurantIndexByName(restaurantName);
 
+            if ( numVetoesLeft <= 0){
+                Log.e("clicked", "cant vote, votes are: "+numVetoesLeft);
+                //Check if the item that was clicked was the last item to be vetoed
+                if (count+1 == listSize){
+                    // Create a Uri from an intent string. Use the result to create an Intent.
+                    String address = mApplication.restaurants.get(targetLocation).getAddress();
+                    Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
+
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+
+                    mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.getApplication().startActivity(mapIntent);
+                } else {
+                    return;
+                }
+            }
+            Log.d("clicked", "Voted numVotes left: "+numVetoesLeft);
+
             if(targetLocation >= 0){
                 mApplication.restaurants.get(targetLocation).setVetoed(true);
                 count++;
@@ -92,24 +105,12 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             //Log.e("tv ", restaurantName+" size: "+listSize+" count: "+count);
 
             //Take user to google maps if last item is clicked
-            if (count == listSize){
-                // Create a Uri from an intent string. Use the result to create an Intent.
-                String address = mApplication.restaurants.get(targetLocation).getAddress();
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
-
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-
-                mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                activity.getApplication().startActivity(mapIntent);
-
-            } else{
+            if (count != listSize){
                 //Not last item, grey it out
                 serverSender.sendMessage("veto", restaurantName);
                 mView.findViewById(R.id.row_list_layout).setAlpha(0.5f);
                 mView.findViewById(R.id.row_list_layout).setBackgroundColor(Color.GRAY);
             }
-
             if (targetLocation >= 0 && count > 1) {
 //                  mApplication.restaurants.get(targetLocation).setVetoed(true);
 //                  notifyDataSetChanged();
