@@ -23,7 +23,6 @@ import java.util.ArrayList;
  * Created by Akshat on 2016-06-11.
  */
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
-//    private List<Restaurant> restaurantList;
     private Activity activity;
     private application mApplication;
     private ServerSender serverSender;
