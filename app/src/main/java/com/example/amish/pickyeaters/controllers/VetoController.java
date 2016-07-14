@@ -64,29 +64,13 @@ public class VetoController {
         view.runOnUiThread(new Runnable(){
             @Override
             public void run() {
-                int maxChildCount = view.getRecyclerView().getChildCount();
-//                int tmp = position;
-//                while (tmp > maxChildCount) {
-//                    tmp -= maxChildCount;
-//                    view.getRecyclerView().getLayoutManager().scrollToPosition(maxChildCount);
-//                }
-
-//                LinearLayoutManager lL = (LinearLayoutManager) view.getRecyclerView().getLayoutManager();
                 if (view.getRecyclerView().findViewHolderForAdapterPosition(position) != null) {
                     view.getRecyclerView().findViewHolderForAdapterPosition(position).itemView.setSelected(false);
                 }
 
-
                 mApplication.getVetoModel().getRestaurantsAdapter().selectedItems.put(position,true);
                 mApplication.getVetoModel().getRestaurantsAdapter().notifyItemChanged(position);
                 mApplication.getVetoModel().getRestaurantsAdapter().notifyDataSetChanged();
-                Log.d("The", String.valueOf(view.getRecyclerView().getChildCount()));
-//                Log.d("The", String.valueOf(lL.findFirstVisibleItemPosition()));
-//                Log.d("The", String.valueOf(lL.findLastVisibleItemPosition()));
-//                Log.d("The", String.valueOf(lL.findFirstCompletelyVisibleItemPosition()));
-//                Log.d("The", String.valueOf(lL.findLastVisibleItemPosition()));
-//                RelativeLayout myChild = (RelativeLayout) view.getRecyclerView().getChildAt(tmp);
-
             }
         });
     }
