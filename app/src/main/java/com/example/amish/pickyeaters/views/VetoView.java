@@ -18,17 +18,20 @@ import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
 import com.example.amish.pickyeaters.helpers.RestaurantsAdapter;
 
+import org.w3c.dom.Text;
+
 
 public class VetoView extends AppCompatActivity {
     private RecyclerView recyclerView;
     private application mApplication;
     private ProgressBar vetoProgressBar;
+    private TextView numVotesLeftView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-//Add this to your Recyclerview
+        //Add this to your Recyclerview
         setContentView(R.layout.veto_view);
         mApplication = (application)getApplication();
         mApplication.setVetoView(this);
@@ -38,11 +41,27 @@ public class VetoView extends AppCompatActivity {
         vetoProgressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
+        final TextView txt = (TextView) findViewById(R.id.topLabel1);
+        numVotesLeftView = (TextView) findViewById(R.id.veto_text_votesLeft);
+        vetoProgressBar = (ProgressBar) findViewById(R.id.veto_progressBar);
+        vetoProgressBar.setVisibility(View.VISIBLE);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        numVotesLeftView.setText(""+mApplication.getVetoModel().getNumVotes());
     }
 
 
     public void removeVetoProgressBar() {
         vetoProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void updateNumVotesLeft(final int votes){
+        this.runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                numVotesLeftView.setText(""+votes);
+            }
+        });
     }
 
     public void initRecyclerViewWithAdapter(RestaurantsAdapter adapter) {
@@ -69,4 +88,5 @@ public class VetoView extends AppCompatActivity {
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
+    public TextView getVotesLeftTextView() { return numVotesLeftView; }
 }
