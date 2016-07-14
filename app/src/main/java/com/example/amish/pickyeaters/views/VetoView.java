@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,8 @@ public class VetoView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+//Add this to your Recyclerview
         setContentView(R.layout.veto_view);
         mApplication = (application)getApplication();
         mApplication.setVetoView(this);
@@ -31,6 +34,7 @@ public class VetoView extends AppCompatActivity {
         vetoProgressBar = (ProgressBar) findViewById(R.id.veto_progressBar);
         vetoProgressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     public void removeVetoProgressBar() {

@@ -7,7 +7,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.amish.pickyeaters.R;
@@ -61,7 +64,22 @@ public class VetoController {
         view.runOnUiThread(new Runnable(){
             @Override
             public void run() {
-                RelativeLayout myChild = (RelativeLayout) view.getRecyclerView().getChildAt(position);
+                int maxChildCount = view.getRecyclerView().getChildCount();
+                int tmp = position;
+                while (tmp > maxChildCount) {
+                    tmp -= maxChildCount;
+                    view.getRecyclerView().getLayoutManager().scrollToPosition(maxChildCount);
+                }
+
+                LinearLayoutManager lL = (LinearLayoutManager) view.getRecyclerView().getLayoutManager();
+
+
+                Log.d("The", String.valueOf(view.getRecyclerView().getChildCount()));
+                Log.d("The", String.valueOf(lL.findFirstVisibleItemPosition()));
+                Log.d("The", String.valueOf(lL.findLastVisibleItemPosition()));
+                Log.d("The", String.valueOf(lL.findFirstCompletelyVisibleItemPosition()));
+                Log.d("The", String.valueOf(lL.findLastVisibleItemPosition()));
+                RelativeLayout myChild = (RelativeLayout) view.getRecyclerView().getChildAt(tmp);
                 myChild.setAlpha(0.5f);
                 myChild.setBackgroundColor(Color.GRAY);
             }

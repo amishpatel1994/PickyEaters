@@ -10,7 +10,8 @@
     android:paddingBottom="10dp"
     android:clickable="true"
     android:addStatesFromChildren="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/selector_row">
 
     <LinearLayout
         android:id="@+id/titleBar"
