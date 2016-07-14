@@ -23,7 +23,7 @@
         android:layout_height="@dimen/button_height"
         android:layout_below="@id/topImage"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
+        android:layout_marginTop="100dp"
         android:text="NEW" />
 
     <android.support.v7.widget.AppCompatEditText
