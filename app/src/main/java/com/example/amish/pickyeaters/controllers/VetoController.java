@@ -67,6 +67,7 @@ public class VetoController {
             public void run() {
                 if (view.getRecyclerView().findViewHolderForAdapterPosition(position) != null) {
                     view.getRecyclerView().findViewHolderForAdapterPosition(position).itemView.setSelected(false);
+                    view.getRecyclerView().findViewHolderForAdapterPosition(position).itemView.setEnabled(true);
                 }
                 mApplication.restaurants.get(position).setVetoed(true);
                 mApplication.getVetoModel().getRestaurantsAdapter().selectedItems.put(position,true);

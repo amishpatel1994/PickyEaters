@@ -75,8 +75,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         if (!selectedItems.get(position)) {
             holder.itemView.setSelected(false);
+            holder.itemView.setEnabled(true);
         }else{
             holder.itemView.setSelected(true);
+            holder.itemView.setEnabled(false);
         }
 
 
@@ -94,29 +96,35 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 if (numVetoesLeft >= 1) {
                     if (!selectedItems.get(position)) {
                         holder.itemView.setSelected(true);
+                        holder.itemView.setEnabled(false);
                         mApplication.restaurants.get(position).setVetoed(true);
                         selectedItems.put(position, true);
                         serverSender.sendMessage("veto", mApplication.restaurants.get(position).getName());
                     } else {
                         holder.itemView.setSelected(false);
+                        holder.itemView.setEnabled(true);
                     }
                 }
 
-                Log.d("EYO", String.valueOf(numVetoed));
-                if (numVetoed == mApplication.restaurants.size()-2) {
-                    Toast.makeText(activity, "Click on restaurant to go to google maps",
-                            Toast.LENGTH_LONG).show();
-                } else if (numVetoed == mApplication.restaurants.size()-1) {
-                    String address = mApplication.restaurants.get(position).getAddress();
-                    Uri gmmIntentUri = Uri.parse("geo:0,0?q="+address);
+                if (numVetoesLeft > 0) {
+                    Log.d("EYO", String.valueOf(numVetoed));
+                    if (numVetoed == mApplication.restaurants.size() - 2) {
+                        Toast.makeText(activity, "Click on restaurant to go to google maps",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+                if (numVetoed == mApplication.restaurants.size() - 1) {
+                        String address = mApplication.restaurants.get(position).getAddress();
+                        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);
 
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
 
-                    mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    activity.getApplication().startActivity(mapIntent);
+                        mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        activity.getApplication().startActivity(mapIntent);
                 }
             }
+
         });
 
     }
