@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.amish.pickyeaters.R;
 import com.example.amish.pickyeaters.application;
@@ -67,10 +68,21 @@ public class VetoController {
                 if (view.getRecyclerView().findViewHolderForAdapterPosition(position) != null) {
                     view.getRecyclerView().findViewHolderForAdapterPosition(position).itemView.setSelected(false);
                 }
-
+                mApplication.restaurants.get(position).setVetoed(true);
                 mApplication.getVetoModel().getRestaurantsAdapter().selectedItems.put(position,true);
                 mApplication.getVetoModel().getRestaurantsAdapter().notifyItemChanged(position);
                 mApplication.getVetoModel().getRestaurantsAdapter().notifyDataSetChanged();
+
+                int numVetoed = 0;
+                for (Restaurant r : mApplication.restaurants) {
+                    if(r.isVetoed())
+                        numVetoed++;
+                }
+
+                if (numVetoed == mApplication.restaurants.size()-1) {
+                    Toast.makeText(view, "Click on restaurant to go to google maps",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

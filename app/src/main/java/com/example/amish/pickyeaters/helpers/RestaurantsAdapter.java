@@ -84,7 +84,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             @Override
             public void onClick(View v) {
                 int numVetoesLeft = mApplication.getVetoModel().getNumVotes();
-
                 int numVetoed = 0;
                 for (Restaurant r:mApplication.restaurants) {
                     if (r.isVetoed()) {
@@ -103,6 +102,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     }
                 }
 
+                Log.d("EYO", String.valueOf(numVetoed));
                 if (numVetoed == mApplication.restaurants.size()-2) {
                     Toast.makeText(activity, "Click on restaurant to go to google maps",
                             Toast.LENGTH_LONG).show();
