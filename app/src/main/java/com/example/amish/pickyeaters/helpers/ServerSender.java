@@ -26,6 +26,7 @@ public class ServerSender {
         mSocket.emit(message);
     }
 
+
     public void sendMessage(String message, String value) {
         Log.d("Send", "The message: " + message + ", value: " + value);
         mSocket.emit(message, value);
@@ -33,6 +34,7 @@ public class ServerSender {
 
     public void sendMessage(String message, ArrayList<JSONObject> obj){
         mSocket.emit(message, obj);
+        Log.d("Message", message);
     }
 
 

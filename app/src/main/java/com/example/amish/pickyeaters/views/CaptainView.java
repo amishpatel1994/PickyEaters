@@ -59,8 +59,6 @@ public class CaptainView extends AppCompatActivity {
     View.OnClickListener btnStartVetoClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            CaptainController tmp = mApplication.getCaptainController();
-
             mApplication.getCaptainController().startVetoProcess(distanceText.getText().toString());
         }
     };

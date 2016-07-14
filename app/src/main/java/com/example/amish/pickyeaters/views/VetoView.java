@@ -1,5 +1,9 @@
 package com.example.amish.pickyeaters.views;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -30,12 +34,12 @@ public class VetoView extends AppCompatActivity {
         mApplication.setVetoView(this);
         mApplication.initVetoController();
 
-        final TextView txt = (TextView) findViewById(R.id.topLabel1);
         vetoProgressBar = (ProgressBar) findViewById(R.id.veto_progressBar);
         vetoProgressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
     }
+
 
     public void removeVetoProgressBar() {
         vetoProgressBar.setVisibility(View.INVISIBLE);
@@ -48,6 +52,18 @@ public class VetoView extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         //recyclerView.findViewHolderForLayoutPosition()
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent mStartActivity = new Intent(getApplicationContext(), HomeView.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
     }
 
     public RecyclerView getRecyclerView() {
