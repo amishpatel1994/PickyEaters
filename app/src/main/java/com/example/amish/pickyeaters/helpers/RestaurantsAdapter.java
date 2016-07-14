@@ -27,7 +27,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private Activity activity;
     private application mApplication;
     private ServerSender serverSender;
-    private SparseBooleanArray selectedItems;
+    public SparseBooleanArray selectedItems;
     //Number of restaurants that are Vetoed
     private int count = 0;
 
