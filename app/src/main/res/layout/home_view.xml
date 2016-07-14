@@ -9,14 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".views.VetoView">
 
-    <TextView
-        android:id="@+id/topLabel1"
+    <ImageView
+        android:id="@+id/topImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/teal"
-        android:textSize="80sp"
-        android:text="Picky Eaters"
-        android:paddingTop="50sp"
+        android:layout_height="200sp"
+        android:src="@drawable/edwardpizza"
         android:layout_alignParentTop="true"
         android:textAlignment="center"/>
     
@@ -24,14 +21,15 @@
         android:id="@+id/home_new_button"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
-        android:layout_below="@id/topLabel1"
+        android:layout_below="@id/topImage"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
         android:text="NEW" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/home_edittext_sessionID"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
+        android:layout_centerInParent="true"
         android:layout_height="50dp"
         android:layout_below="@id/home_new_button"
         android:hint="Enter the session ID to join"
